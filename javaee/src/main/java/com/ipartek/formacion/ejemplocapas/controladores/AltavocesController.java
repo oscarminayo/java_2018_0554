@@ -28,7 +28,7 @@ public class AltavocesController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
+		//
 		// atributos
 		String id =request.getParameter("id");
 		String marca =request.getParameter("marca");

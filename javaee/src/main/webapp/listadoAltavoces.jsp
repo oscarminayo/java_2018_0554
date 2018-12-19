@@ -7,7 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Listado de Altavoces</title>
-</head>
+</head> 
 <body>
 
 <a href="incluirAltavoz.jsp">Incluir Altavoz</a><br> 
