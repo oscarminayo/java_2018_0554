@@ -1,48 +1,45 @@
 package com.ipartek.formacion.modelo.pojos;
 
-public class Perro {
+public class PerrosPojo {
 
-	// atributos
-	private long id, chip;
+	//ATRIBUTOS
+	private Long id,chip;
 	private String nombre;
 	private String raza;
-	private String imagen;
-
-// METODOS CONSTRUCTORES
-
-	public Perro() {  // SIN PARAMETROS
+	
+	
+	// METODO CONSTRUCTOR SUPERCLASE
+	public PerrosPojo() {
 		super();
-		this.id = -1;
-		this.nombre = "Negu";
-		this.chip = 1305;
-		this.raza = "perro de aguas";
-		this.imagen = "https://www.petjiltonclub.com/fe-770x300-ffffff-data/fotos/perro-marron-de-agua.jpgperro de aguas";
+		this.id = (long)+1;;  // casting para Long. Que pasaria si declaro la variable Long a primitiva long
+		this.chip =(long)+1;;
+		this.nombre = "";
+		this.raza ="";
 	}
-
-	public Perro(long id, long chip, String nombre, String raza, String imagen) { // CON PARAMETROS
-		this();
+	
+	// METODO CONSTRUCTOR CON PARÁMETROS
+	public PerrosPojo(Long id, Long chip, String nombre, String raza) {
+		super();
 		setId (id);
-		setNombre (nombre);
 		setChip (chip);
+		setNombre (nombre);
 		setRaza (raza);
-		setImagen (imagen);
-
 	}
-		
-	//GETTER Y SETTERS
-	public long getId() {
+	
+	//GETTERS Y SETTERS
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public long getChip() {
+	public Long getChip() {
 		return chip;
 	}
 
-	public void setChip(long chip) {
+	public void setChip(Long chip) {
 		this.chip = chip;
 	}
 
@@ -62,19 +59,17 @@ public class Perro {
 		this.raza = raza;
 	}
 
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
-
-	// toString
+	
+	
+	
+	
+	//TO STRING
 	@Override
 	public String toString() {
-		return "Perro [id=" + id + ", chip=" + chip + ", nombre=" + nombre + ", raza=" + raza + ", imagen=" + imagen
-				+ "]";
+		return "PerrosPojo [id=" + id + ", chip=" + chip + ", nombre=" + nombre + ", raza=" + raza + "]";
 	}
-
+	
+	
+	
+	
 }

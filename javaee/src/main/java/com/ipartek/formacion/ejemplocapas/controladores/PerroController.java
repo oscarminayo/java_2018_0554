@@ -8,48 +8,74 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.modelo.daos.PerroDAO;
+import com.ipartek.formacion.modelo.pojos.PerrosPojo;
 
-import com.ipartek.formacion.modelo.pojos.Perro;
-import com.ipartek.formacion.modelo.pojos.Video;
-
-/**
- * Servlet implementation class VideoController
- */
 public class PerroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		ArrayList<Perro> perros = new ArrayList<Perro>();
-
-		PerroDAO dao = new PerroDAO();
-
-		request.setAttribute("perros", dao.getAll());
-
-		request.getRequestDispatcher("perrros.jsp").forward(request, response);
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 
-		String busqueda = request.getParameter("busqueda");
-		
-		ArrayList<Video> perros = new ArrayList<Video>();
-		request.setAttribute("perros", dao.getAllByNombre(busqueda) );		
-		request.setAttribute("busqueda", busqueda);
-		request.getRequestDispatcher("perros.jsp").forward(request, response);		
 	
+		// guardar parametros en atributos
+		String id = request.getParameter("id");  									// GUARDO EL PARAMETRO EN UN ATRIBUTO
+		String chip = request.getParameter("chip");
+		String nombre = request.getParameter("nombre"); 							// guardo el valor del parametro email en un string 
+		String raza = request.getParameter("raza");	
+		
+		
+		//VALIDACION
+		//if (nombre.equals(""){	 													 
+			//request.setAttribute("error", "No has rellenado el campo nombre" );  			
+			//request.getRequestDispatcher("loginPerro.jsp").forward(request, response);// VUELVO A LOGINPERRO.JSP
+		//}
+	
+		
+		try { //INTENTALO
+			
+			if (nombre != "" && raza != "") { 		
+				// CASTING
+				Long numeroId = (long) Integer.parseInt(id);  						// COMO EL ATRIBUTO ID ES TIPO STRING LE HAGO CASTING CON PARSEINT para tener un entero
+				Long numeroChip = (long)Integer.parseInt(chip);
+	
+				// creo un array list de la clase PerrosPojo 
+				//para crear elementos con el constructor de esta clase
+				
+				ArrayList<PerrosPojo> perros = new ArrayList<PerrosPojo>();  		// no olvidar importar PerrosPojo
+				
+				perros.add(new PerrosPojo(13L,23L,"negu","raza") );  		// añado elementos con el constructor con parametros de la clase PerrosPojo
+			
+				// GENERAR RESPUESTA
+				request.setAttribute("perros", perros); 							//Guardo el array perros como atributo del parametro perros
+	
+				//ENVIAR RESPUESTA
+				request.getRequestDispatcher("listadoPerros.jsp").forward(request, response);	
+				}		
+		
+		}catch (Exception e) { // SI EL TRY NO LO CONSIGUE LANZAR EXCEPCIONES	
+			if (nombre == "" && raza != "") {	 													 
+				request.setAttribute("error", "No has rellenado el campo nombre" );  			
+		
+				request.getRequestDispatcher("loginPerro.jsp").forward(request, response);// VUELVO A LOGINPERRO.JSP
+			}
+			else if (nombre !="" && raza == "") {
+				request.setAttribute("error", "No has rellenado el campo raza");  			
+			
+				request.getRequestDispatcher("loginPerro.jsp").forward(request, response);
+			}
+			else if (nombre == "" && raza == "") {
+				request.setAttribute("error", "No has rellenado ningun campo" );  				
+			
+				request.getRequestDispatcher("loginPerro.jsp").forward(request, response);
+			}
+					
+			// e.printStackTrace();
+			
+		}
 	}
 
 }
