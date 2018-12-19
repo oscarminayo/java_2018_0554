@@ -9,12 +9,12 @@
 </head>
 <body>
 
- <h1>Calculadora</h1>
+<h1>Calculadora</h1>
  
 <section>
 <div > 
 <!-- action para indicar servlet y method para get o post -->
-	<form action="calcular" method="get">
+	<form action="calcular" method="post">
 		<!-- action llama al servlet y method indica get o post -->
 		<fieldset>
 			<table>

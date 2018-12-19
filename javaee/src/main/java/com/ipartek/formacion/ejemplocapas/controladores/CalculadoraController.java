@@ -18,13 +18,24 @@ public class CalculadoraController extends HttpServlet { 										// generado p
 	throws ServletException, IOException,NullPointerException{ 												// generado por eclipse
 	response.getWriter().append("Served at: ").append(request.getContextPath());				// generado por eclipse
 	
-	//IMPORTANTE: envio la RESPUESTA de doPost A doGet porque recibo el formulario de la calculadora por doPost
-	doPost(request, response);  
+	//Para mandar los parámetros request, response a doPost
+	//doPost(request, response);  
+	
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)		 		// generado por eclipse
 			throws ServletException, IOException { 												// generado por eclipse	
-		 																// generado por eclipse
+	
+	//IMPORTANTE: envio la respuesta mediante el metodo do doGet. 
+		
+		
+		//SE RESUME en que tengo que elegir por que metodo envio  la respuesta que he creado con getRequestDispatcher.dispacher.forward 
+		// es diferente dar una direccion al .forward que elegir el metodo para mandar los parámetros (request,response) a esa direccion.
+		
+		//Para mandar los parámetros request, response a doGet
+		//doGet(request, response);  
+		
+		// generado por eclipse
 		String op1 = request.getParameter("op1"); 												// guardo el parametro (name "op1") en una varibale tipo string porque																						// html solo trabaja con texto
 		String op2 = request.getParameter("op2"); 												// para guardar el parámetro utilizo el metodo.getParameter // numero que introduce el ususario mediante el formulario de Calculadora.jsp
 		String sumar = request.getParameter("sumar");
