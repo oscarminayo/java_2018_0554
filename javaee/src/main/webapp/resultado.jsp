@@ -1,10 +1,26 @@
-<h1>Resultado</h1>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
 
 
-<%
-	
-	int suma = (Integer)request.getAttribute("suma");
+<a href="http://localhost:8080/javaee/calculadora.jsp">Inicio</a>
 
-%>
+<!-- creo variable para guardar el valor del parámetro -->
+<% int operacionMatematica = (Integer)request.getAttribute("resultado"); %>  
+<!--  obtengo el resultado del parámetro suma y  Integer es por el casting  -->
 
-<p>Suma = <%=suma%></p>
+El resultado de la operacion es:	 <!-- texto que se muestra -->			
+
+<%=operacionMatematica %> 	 <!--  obtener valor (atributo) del parámetro resultado   -->						
+
+
+
+
+</body>
+</html>

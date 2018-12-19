@@ -31,7 +31,7 @@
   </servlet>
   <servlet>
   	<servlet-name>UsuarioController</servlet-name>
-  	<display-name>Usuarios</display-name>
+  	<display-name>UsuariosController</display-name>
   	<description></description>
   	<servlet-class>com.ipartek.formacion.ejemplocapas.controladores.UsuarioController</servlet-class>
   </servlet>

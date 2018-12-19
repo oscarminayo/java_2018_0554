@@ -10,7 +10,8 @@
 <body>
 
 <a href="loginPerro.jsp">CREAR PERRO</a><br>
-<a href="incluirAltavoz.jsp">Incluir Altavoz</a><br>
+<a href="incluirAltavoz.jsp">INCLUIR ALTAVOZ</a><br>
+<a href="calculadora.jsp">CALCULADORA</a><br>
 
 <form action="login" method="post">
 	<fieldset>
