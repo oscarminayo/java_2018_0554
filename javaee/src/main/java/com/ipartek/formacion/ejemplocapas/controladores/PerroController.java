@@ -18,8 +18,7 @@ public class PerroController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-
+		doGet(request, response); // para enviar la respuesta a doget IMPORTANTE
 	
 		// guardar parametros en atributos
 		String id = request.getParameter("id");  									// GUARDO EL PARAMETRO EN UN ATRIBUTO
@@ -47,7 +46,7 @@ public class PerroController extends HttpServlet {
 				
 				ArrayList<PerrosPojo> perros = new ArrayList<PerrosPojo>();  		// no olvidar importar PerrosPojo
 				
-				perros.add(new PerrosPojo(13L,23L,"negu","raza") );  		// añado elementos con el constructor con parametros de la clase PerrosPojo
+				perros.add(new PerrosPojo(numeroId,numeroChip,nombre,raza) );  		// añado elementos con el constructor con parametros de la clase PerrosPojo
 			
 				// GENERAR RESPUESTA
 				request.setAttribute("perros", perros); 							//Guardo el array perros como atributo del parametro perros

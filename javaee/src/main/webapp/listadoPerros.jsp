@@ -37,16 +37,16 @@ ArrayList<PerrosPojo> listadoPerros =(ArrayList<PerrosPojo> )request.getAttribut
 			</tr>
 		</thead>
 		<tbody>
-				<% for ( PerrosPojo e: listadoPerros){ %>
+				<% for ( PerrosPojo p: listadoPerros){ %>
 				<tr>
-							<td><%e.getId(); %></td>	
-							<td><%e.getChip(); %></td>	
-							<td><%e.getNombre(); %></td>	
-							<td><%e.getRaza(); %></tr>	
+							<td><%=p.getId() %></td>	
+							<td><%=p.getChip() %></td>	
+							<td><%=p.getNombre()%></td>	
+							<td><%=p.getRaza()%></tr>	
 								
 							
 				<% } %>									<!--  NO OLVIDAR CERRAR EL BULCE -->
 		</tbody>
 	</table>
 </body>
-</html>
+</html> <!-- kjgñfljgñfldkjgkñldfsg -->
