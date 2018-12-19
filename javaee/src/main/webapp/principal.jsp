@@ -5,7 +5,6 @@
 <%
 	Usuario usuario = (Usuario)request.getAttribute("usuario");
 	ArrayList<Usuario> listado = (ArrayList<Usuario>)request.getAttribute("listado");
-
 %>
 
 <!DOCTYPE html>
@@ -15,6 +14,11 @@
 <title>Principal</title>
 </head>
 <body>
+
+	<%@ include file="cabecera.jsp"  %>
+
+
+	
 
 	<h1>
 		Bienvenido a esta web
