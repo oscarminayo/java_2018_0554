@@ -19,7 +19,7 @@ public class PerroController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response); // para enviar la respuesta a doget IMPORTANTE
-	
+	//
 		// guardar parametros en atributos
 		String id = request.getParameter("id");  									// GUARDO EL PARAMETRO EN UN ATRIBUTO
 		String chip = request.getParameter("chip");
@@ -69,4 +69,4 @@ public class PerroController extends HttpServlet {
 			}
 		}
 
-}
+}//
