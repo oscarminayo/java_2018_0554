@@ -41,6 +41,12 @@
   	<description></description>
   	<servlet-class>com.ipartek.formacion.ejemplocapas.controladores.CarritoController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AltavocesController</servlet-name>
+  	<display-name>AltavocesController</display-name>
+  	<description></description>
+  	<servlet-class>com.ipartek.formacion.ejemplocapas.controladores.AltavocesController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/login</url-pattern>
@@ -68,6 +74,10 @@
   <servlet-mapping>
   	<servlet-name>CarritoController</servlet-name>
   	<url-pattern>/carrito</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AltavocesController</servlet-name>
+  	<url-pattern>/altvocesServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
   	<welcome-file>login</welcome-file>

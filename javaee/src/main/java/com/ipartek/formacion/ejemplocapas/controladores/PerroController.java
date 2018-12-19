@@ -14,7 +14,7 @@ public class PerroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());	
+		response.getWriter().append("Served at: ").append(request.getContextPath());		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,16 +26,26 @@ public class PerroController extends HttpServlet {
 		String nombre = request.getParameter("nombre"); 							// guardo el valor del parametro email en un string 
 		String raza = request.getParameter("raza");	
 		
+		// crear ArrayList
+		ArrayList<PerrosPojo> perros = new ArrayList<>();
 		
-		//VALIDACION
-		//if (nombre.equals(""){	 													 
-			//request.setAttribute("error", "No has rellenado el campo nombre" );  			
-			//request.getRequestDispatcher("loginPerro.jsp").forward(request, response);// VUELVO A LOGINPERRO.JSP
-		//}
-	
 		
-		try { //INTENTALO
-			
+		// Validar campos
+		if (nombre.equals("")==false&& raza.equals("")) {	 													 
+			request.setAttribute("error", "No has rellenado el campo SPL" );  			
+			request.getRequestDispatcher("loginPerro.jsp").forward(request, response);// VUELVO A LOGINPERRO.JSP
+		}
+		else if (raza.equals("")==false&& nombre.equals("")){
+			request.setAttribute("error", "No has rellenado el campo Modelo");  					
+			request.getRequestDispatcher("loginPerro.jsp").forward(request, response);
+		}
+		else if (nombre.equals("")&& raza.equals("")) {
+			request.setAttribute("error", "No has rellenado el campo Marca" );  				
+			request.getRequestDispatcher("loginPerro.jsp").forward(request, response);
+		}
+		
+		
+		try { //INTENTALO			
 			if (nombre != "" && raza != "") { 		
 				// CASTING
 				Long numeroId = (long) Integer.parseInt(id);  						// COMO EL ATRIBUTO ID ES TIPO STRING LE HAGO CASTING CON PARSEINT para tener un entero
@@ -43,38 +53,20 @@ public class PerroController extends HttpServlet {
 	
 				// creo un array list de la clase PerrosPojo 
 				//para crear elementos con el constructor de esta clase
-				
-				ArrayList<PerrosPojo> perros = new ArrayList<PerrosPojo>();  		// no olvidar importar PerrosPojo
-				
-				perros.add(new PerrosPojo(numeroId,numeroChip,nombre,raza) );  		// añado elementos con el constructor con parametros de la clase PerrosPojo
+			
+				perros.add(new PerrosPojo(numeroId,numeroChip,nombre,raza) ); // no olvidar importar PerrosPojo 		// añado elementos con el constructor con parametros de la clase PerrosPojo
 			
 				// GENERAR RESPUESTA
 				request.setAttribute("perros", perros); 							//Guardo el array perros como atributo del parametro perros
-	
+				
 				//ENVIAR RESPUESTA
-				request.getRequestDispatcher("listadoPerros.jsp").forward(request, response);	
-				}		
+				request.getRequestDispatcher("listadoPerros.jsp").forward(request, response);				 
+			}
+			}catch (Exception e) { // SI EL TRY NO LO CONSIGUE LANZAR EXCEPCIONES	
 		
-		}catch (Exception e) { // SI EL TRY NO LO CONSIGUE LANZAR EXCEPCIONES	
-			if (nombre == "" && raza != "") {	 													 
-				request.setAttribute("error", "No has rellenado el campo nombre" );  			
-		
-				request.getRequestDispatcher("loginPerro.jsp").forward(request, response);// VUELVO A LOGINPERRO.JSP
-			}
-			else if (nombre !="" && raza == "") {
-				request.setAttribute("error", "No has rellenado el campo raza");  			
+			e.printStackTrace();
 			
-				request.getRequestDispatcher("loginPerro.jsp").forward(request, response);
 			}
-			else if (nombre == "" && raza == "") {
-				request.setAttribute("error", "No has rellenado ningun campo" );  				
-			
-				request.getRequestDispatcher("loginPerro.jsp").forward(request, response);
-			}
-					
-			// e.printStackTrace();
-			//
 		}
-	}
 
 }

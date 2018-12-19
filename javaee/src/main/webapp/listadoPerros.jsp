@@ -37,6 +37,7 @@ ArrayList<PerrosPojo> listadoPerros =(ArrayList<PerrosPojo> )request.getAttribut
 			</tr>
 		</thead>
 		<tbody>
+		
 				<% for ( PerrosPojo p: listadoPerros){ %>
 				<tr>
 							<td><%=p.getId() %></td>	
@@ -48,5 +49,7 @@ ArrayList<PerrosPojo> listadoPerros =(ArrayList<PerrosPojo> )request.getAttribut
 				<% } %>									<!--  NO OLVIDAR CERRAR EL BULCE -->
 		</tbody>
 	</table>
+	
+	
 </body>
 </html> <!-- kjgñfljgñfldkjgkñldfsg -->

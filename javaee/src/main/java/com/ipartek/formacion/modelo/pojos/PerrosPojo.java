@@ -15,15 +15,19 @@ public class PerrosPojo {
 		this.chip =(long)+1;;
 		this.nombre = "";
 		this.raza ="";
+		id ++;
+		chip ++;
 	}
 	
 	// METODO CONSTRUCTOR CON PARÁMETROS
 	public PerrosPojo(Long id, Long chip, String nombre, String raza) {
 		super();
-		setId (id);
-		setChip (chip);
+		setId (id +1);
+		setChip (chip+1); // + 1 para no empezar en 0
 		setNombre (nombre);
 		setRaza (raza);
+		id ++;
+		chip ++;
 	}
 	
 	//GETTERS Y SETTERS
