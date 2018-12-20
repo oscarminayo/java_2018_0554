@@ -25,7 +25,7 @@ public class VideoDAO {
 		return INSTANCE;
 	}
 
-	public Video getById(long id) {
+	public Video getById(long id) {  // COMPARA LA ID
 
 		Video registro = null;
 		String sql = "SELECT id, nombre, url FROM oscar WHERE id= ?;";
@@ -50,7 +50,7 @@ public class VideoDAO {
 		return registro;
 	}
 
-	public ArrayList<Video> getAll() {
+	public ArrayList<Video> getAll() { // COMPARA TODO
 
 		ArrayList<Video> listado = new ArrayList<Video>();
 		String sql = "SELECT id, nombre, url FROM oscar ORDER BY id DESC LIMIT 500;";
@@ -77,7 +77,7 @@ public class VideoDAO {
 		return listado;
 	}
 
-	public ArrayList<Video> getAllByNombre(String nombre) {
+	public ArrayList<Video> getAllByNombre(String nombre) { // COMPARA NOMBRE
 
 		ArrayList<Video> listado = new ArrayList<Video>();
 		String sql = "SELECT id, nombre, url FROM oscar WHERE NOMBRE LIKE ? ORDER BY id DESC LIMIT 500;";

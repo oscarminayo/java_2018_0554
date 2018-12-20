@@ -10,6 +10,8 @@
 </head> 
 <body>
 
+<%@ include file="cabecera.jsp"  %> <!-- CABECERA CON CARRITO -->
+
 <a href="incluirAltavoz.jsp">Incluir Altavoz</a><br> 
 
 <%// guardo en un ArrayList los atributos del Array list creado en perrosController

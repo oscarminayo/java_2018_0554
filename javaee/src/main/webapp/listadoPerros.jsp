@@ -10,6 +10,9 @@
 <title>listado de perros</title>
 </head>
 <body>
+
+<%@ include file="cabecera.jsp"  %> <!-- CABECERA CON CARRITO -->
+
 <h1>listado de perros</h1>
 
 <a href="login.jsp">INICIO</a><br> 										<!--  ENLACE INICIO -->

@@ -12,6 +12,8 @@
 <a href="loginPerro.jsp">CREAR PERRO</a><br>
 <a href="incluirAltavoz.jsp">INCLUIR ALTAVOZ</a><br>
 <a href="calculadora.jsp">CALCULADORA</a><br>
+<a href="calculadoraGet.jsp">CALCULADORA por Get</a><br>
+<a href="videos.jsp">videos</a><br>
 
 <form action="login" method="post">
 	<fieldset>

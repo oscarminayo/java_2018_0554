@@ -1,6 +1,8 @@
 
 <!doctype html>
 <html lang="en">
+  
+  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +21,9 @@
   <body class="text-center"> 	
   
   
+  <!-- MENSAJE DE ALERTA COPIADO DE BOOTSRAP. LE AÑADO ${mensaje} PARA MOSTRAR ERROR DE LOGINCONTROLER Y ROW PARA LAS COLUMNAS DE BOOTSTRAP-->
   
+  <!-- COLUMNA 1 -->
   <div class="row">
 	  <div class="alert alert-danger alert-dismissible fade show" role="alert">
 		  ${mensaje}
@@ -28,16 +32,18 @@
 		  </button>
 		</div>
   </div>	
+ <!-- FIN DE MENSAJE DE ALERTA COPIADO DE BOOTSRAP. -->   
   
-  
+   <!-- COLUMNA 2 -->
   <div class="row">
   
-  
+  <!-- MUESTRO MENSAJE DE ERRORES -->
   ${errores}
   
+  <!-- COPIADO DE BOOTSRAP, CAMBIO ACTION METHOD, ETIQUETAS Y NOMBRES -->
     <form novalidate action="login" method="post" class="form-signin">
       
-      
+      <!--  For linkea la etiqueta label con el input le doy valor para no tener que poner un usuario validado cada vez -->
       <label for="email" class="sr-only">Correo Electronico:</label>
       <input type="email" name="email" class="form-control" value="maria@gmail.com" placeholder="tu@email.com" required autofocus>
       
@@ -49,8 +55,7 @@
     </form>
    </div> 
     
-    
-    
+   
     
   </body>
 </html>

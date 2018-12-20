@@ -22,7 +22,7 @@ public class PerroController extends HttpServlet {
 	//
 		// guardar parametros en atributos
 		String id = request.getParameter("id");  									// GUARDO EL PARAMETRO EN UN ATRIBUTO
-		String url= request.getParameter("chip");
+		String chip= request.getParameter("chip");
 		String nombre = request.getParameter("nombre"); 							// guardo el valor del parametro email en un string 
 		String raza = request.getParameter("raza");	
 		
