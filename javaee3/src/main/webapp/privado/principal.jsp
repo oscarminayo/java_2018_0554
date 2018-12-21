@@ -1,49 +1,45 @@
-<%@page import="java.util.ArrayList"%> 									<!--  IMPORTADO PARA PODER CREAR UN ARRAY LIST -->
-<%@page import="com.ipartek.formacion.modelo.pojo.Video"%>  
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-Esto funciona
-
-
-YUYUY soy princila.jsp
-										
-<%// guardo en un ArrayList los atributos del Array list creado en perrosController
-ArrayList<Video> listadoVideos =(ArrayList<Video> )request.getAttribute("perros"); // recojo el objeto perros (atributo) del parametro perros creado en el servlet
-
-//PerrosPojo objetoPerros = new PerrosPojo();
-//objetoPerros.setId(id);
-
-// no olvidar importar java util array y clase del Array
-%>
-
-<table>  																<!-- TABLA PARA METER LOS DATOS DEL ARRAY -->
-		<thead>
-			<tr> 														<!--  CABECERA COLUMNAS -->
-				<th>ID</th>
-				<th>Nombre</th>
-				<th>Url</th>
-				
-				
-			</tr>
-		</thead>
-		<tbody>
-		
-				<% for (Video p: listadoVideos){ %> <!--  FOR EACH DE ARRAY LIST -->
-				<tr>
-							<td><%=p.getId() %></td>						
-							<td><%=p.getNombre()%></td>	
-							<td><%=p.getUrl()%></tr>	
-								
+<!doctype html>
+<html lang="en">
+ 
+<%@ include file="../includes/cabecera.jsp"  %>
+<%@ include file="../includes/nav.jsp"  %>
+ 
+ 
+ 
+ 
+  <body>
+      <div class="container">
+        <h1>Listado Videos</h1>
+        <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Video</th>
+      </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${videos}" var="v">
+      <tr>
+        <td>${v.id}</td>
+        <td>${v.nombre}</td>
+        <td><iframe width="150" height="150" src="https://www.youtube.com/embed/${v.url}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
 							
-				<% } %><!--  NO OLVIDAR CERRAR EL BULCE -->
-		</tbody>
-	</table>
-	
+      </tr>
+      </c:forEach>
+    </tbody>
+  </table>
+  </div>
 
-</body>
+ <%@ include file="../includes/footer.jsp"  %>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+  </body>
 </html>
+

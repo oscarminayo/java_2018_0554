@@ -1,49 +1,42 @@
-
 <!doctype html>
 <html lang="en">
-  
-  
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-   
-    <title>Signin Template for Bootstrap</title>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="../../../../favicon.ico">
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Signin Template for Bootstrap</title>
 
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/4.1/examples/sign-in/signin.css" rel="stylesheet">
-  </head>
+<!-- Bootstrap core CSS -->
+<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="signin.css" rel="stylesheet">
+
+<link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.css"
+	rel="stylesheet">
+<link rel="stylesheet" href="CSS/login.css">
+</head>
 
   <body class="text-center"> 	
   
   
-  <!-- MENSAJE DE ALERTA COPIADO DE BOOTSRAP. LE AÑADO ${mensaje} PARA MOSTRAR ERROR DE LOGINCONTROLER Y ROW PARA LAS COLUMNAS DE BOOTSTRAP-->
   
-  <!-- COLUMNA 1 -->
-  <div class="row">
-	  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-		  ${mensaje}
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		    <span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-  </div>	
- <!-- FIN DE MENSAJE DE ALERTA COPIADO DE BOOTSRAP. -->   
+ 
   
-   <!-- COLUMNA 2 -->
-  <div class="row">
-  
-  <!-- MUESTRO MENSAJE DE ERRORES -->
-  ${errores}
-  
-  <!-- COPIADO DE BOOTSRAP, CAMBIO ACTION METHOD, ETIQUETAS Y NOMBRES -->
-    <form novalidate action="login" method="post" class="form-signin">
+
+
+    <form novalidate action="login" method="post" class="form-signin">    
+    
+     <c:if test="${not empty mensaje}">	  
+		 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+		  ${mensaje}			 
+		 </div>	 	
+	  </c:if>   
       
-      <!--  For linkea la etiqueta label con el input le doy valor para no tener que poner un usuario validado cada vez -->
       <label for="email" class="sr-only">Correo Electronico:</label>
       <input type="email" name="email" class="form-control" value="maria@gmail.com" placeholder="tu@email.com" required autofocus>
       
@@ -53,9 +46,10 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
       
     </form>
-   </div> 
+
     
-   
+    
+    
     
   </body>
 </html>
