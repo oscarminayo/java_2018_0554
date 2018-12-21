@@ -15,7 +15,7 @@ import com.ipartek.formacion.modelo.pojo.PaginaPojo;
 /**
  * Servlet implementation class LibroController
  */
-@WebServlet("/libro")
+@WebServlet("/paginas")
 public class PaginasController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -56,7 +56,7 @@ public class PaginasController extends HttpServlet {
 		request.setAttribute("paginaActual", paginaActual);
 		request.setAttribute("paginasTotal", libro.size() );
 		
-		request.getRequestDispatcher("libro.jsp").forward(request, response);
+		request.getRequestDispatcher("paginas.jsp").forward(request, response);
 		
 		
 	}

@@ -13,7 +13,7 @@
 
 <p>paginacion: ${paginaActual+1} / ${paginasTotal} </p>
 
-<a href="libro?pagina=${paginaActual+1}">Siguiente</a>
+<a href="paginas?pagina=${paginaActual+1}">Siguiente</a>
 
 
 
