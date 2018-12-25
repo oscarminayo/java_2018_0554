@@ -1,8 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+
 
 
 <%@page import= "com.ipartek.formacion.modelo.pojo.PaginaPojo" %>
+
+<!-- link a CSS -->	
+<link rel="stylesheet" href="CSS/paginasView.css">
+<link href="/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <!DOCTYPE html>
 <html>
@@ -10,24 +13,56 @@
 
 <title>Insert title here</title>
 </head>
+<header>
+<%@ include file="../includes/cabecera.jsp"  %>
+</header>
+
 <body>
+<!---------DATOS---------------->
 
-<!-- MUESTRO AUTOR -->
-<p>${datosPagina.autor}  </p>
+<section>  
+   <h1>${datosPagina.autor} </h1>
+        
+   <textarea>${datosPagina.texto}  </textarea>
+        
+    <!-- numero paginacion-->
+    <p>paginacion: ${paginaActual+1} / ${paginasTotal} </p>
 
-<!-- MUESTRO TEXTO -->
-<textarea>${datosPagina.texto}  </textarea>
+</section>
+	
+
+<!---------pagina atras y siguiente----------------->
+
+<section >	
+	<!-- enviar parametro con la pagina acutal para retroceder-->
+	<a href="paginaCB?pagina=${paginaActual-1}">atras</a>		
+	<!-- enviar parametro con la pagina acutal para avanzar-->
+	<a href="paginaCB?pagina=${paginaActual+1}">Siguiente</a> 
+<br>
+</section>
 
 
-
-<p>paginacion: ${paginaActual+1} / ${paginasTotal} </p>
-<p> ${mensaje} </p>
-
-<!-- enviar parametro con la pagina acutal -->
-<a href="paginaCB?pagina=${paginaActual+1}">Siguiente</a>  <!-- converitr a dinámico -->
-<a href="paginaCB?pagina=${paginaActual-1}">atras</a>  <!-- converitr a dinámico --><br>
-<a href="index.jsp">INICIO</a>  <!-- converitr a dinámico -->
-
+<footer>
+<%@ include file="includes/pie.jsp"  %>
+</footer>
+	
+	
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  

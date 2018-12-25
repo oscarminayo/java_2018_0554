@@ -30,9 +30,9 @@ public class LogicaNegocio {
 		return libro.size();
 	}
 
-	public static boolean agregarPagina(Pagina pagina) {
-		if(new StringTokenizer(pagina.getContenido()).countTokens() >= 25) {
-			libro.put(pagina.getNumero(), pagina);
+	public static boolean agregarPagina(Pagina pagina) { // Pajina por PaginaPojo2
+		if(new StringTokenizer(pagina.getContenido()).countTokens() >= 25) { // contenido por texto
+			libro.put(pagina.getNumero(), pagina); // libro por libro2
 			return true;
 		} else {
 			return false;
