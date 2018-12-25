@@ -1,31 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-  <!-- PARA EXPRESIONES FOR EACH ETC -->  
-<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 
 
-<div class="container">
-        <h1>Listado Paginas</h1>
-        <table class="table table-striped">
-    <thead>
-      <tr>
-        
-        <th>Autor</th>
-        <th>Texto</th>
-      </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${libro2}" var="v">
-      <tr>
-        <td>${v.autor}</td>
-        <td>${v.texto}</td>						
-      </tr>
-      </c:forEach>
-    </tbody>
-  </table>
-  </div>
-<p>${datosPagina.autor}  </p>
+<%@ include file="../includes/cabecera.jsp"  %>
+
+<head>
+<!-- link a CSS -->	
+<link rel="stylesheet" href="CSS/cabecera.css">
+</head>
 
 <form action="paginaCB" method="post">
 	<p>
@@ -35,5 +15,6 @@
 	<button type ="submit">Aceptar</button>
 </form>
 
+<a class="nav-link" href="paginaCB?listado=ok"><span>Mostrar paginas del Libro</span></a> 
 
-
+<%@ include file="includes/pie.jsp"  %>

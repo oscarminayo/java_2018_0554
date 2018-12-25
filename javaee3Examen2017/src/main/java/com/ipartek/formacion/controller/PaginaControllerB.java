@@ -3,7 +3,7 @@ package com.ipartek.formacion.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.modelo.pojo.LoginPojo;
-import com.ipartek.formacion.modelo.pojo.PaginaPojo;
+
 import com.ipartek.formacion.modelo.pojo.PaginaPojo2;
 
 /**
@@ -26,7 +26,7 @@ public class PaginaControllerB extends HttpServlet {
 	// Constante genereada por eclipse
 	private static final long serialVersionUID = 1L;
 	//ArrayList
-	private ArrayList<PaginaPojo> libro; // declaro array list
+	private ArrayList<PaginaPojo2> libro; // declaro array list
 	//HashMap	
 	private HashMap<Integer, PaginaPojo2> libro2 = new  HashMap<Integer, PaginaPojo2>();
 	 
@@ -38,21 +38,21 @@ public class PaginaControllerB extends HttpServlet {
 				
 	//ARRAY LIST
 		//Creo array list	
-		libro = new ArrayList <PaginaPojo>(); //Creo array list
+		libro = new ArrayList <PaginaPojo2>(); //Creo array list
 		// añado elementos al arraylist
-		libro.add(new PaginaPojo("Erase un hombre a una nariz pegado","autor 1 miguel de Cervantes"));
-		libro.add( new PaginaPojo("Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra?", "autor2 Jose Luis Cuerda "));
-		libro.add( new PaginaPojo("no lo se no lo se no le se", "autor3 Miguel Noguera"));
-		libro.add( new PaginaPojo("grito sordo", "autor4 ignatius"));
-		libro.add( new PaginaPojo("jibiri jibiri", "autor5 broncano "));
+		libro.add(new PaginaPojo2("Erase un hombre a una nariz pegado","1.Cervantes"));
+		libro.add( new PaginaPojo2("Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra?", "2.Jose Luis Cuerda "));
+		libro.add( new PaginaPojo2("no lo se no lo se no le se", "3.Miguel Noguera"));
+		libro.add( new PaginaPojo2("grito sordo", "4.Ignatius"));
+		libro.add( new PaginaPojo2("jibiri jibiri", "5.Broncano "));
 					
 	//HASHMAP
 		//Creo objetos de clase PaginaPojo 
-		PaginaPojo2 pagina1 = new PaginaPojo2 ("autor 1 miguel de Cervantes", "Erase un hombre a una nariz pegado");	
-		PaginaPojo2 pagina2 = new PaginaPojo2 ( "autor2 Jose Luis Cuerda ","Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra?");
-		PaginaPojo2 pagina3= new PaginaPojo2 ( "autor3 Miguel Noguera","no lo se no lo se no le se");
-		PaginaPojo2 pagina4 = new PaginaPojo2 ("autor4 ignatius","grito sordo");
-		PaginaPojo2 pagina5 = new PaginaPojo2 ("autor5 broncano ","jibiri jibiri");
+		PaginaPojo2 pagina1 = new PaginaPojo2 ("1 Cervantes", "Erase un hombre a una nariz pegado");	
+		PaginaPojo2 pagina2 = new PaginaPojo2 ("2 Jose Luis Cuerda ","Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra?");
+		PaginaPojo2 pagina3= new PaginaPojo2 ( "3 Miguel Noguera","no lo se no lo se no le se");
+		PaginaPojo2 pagina4 = new PaginaPojo2 ("4 Ignatius","grito sordo");
+		PaginaPojo2 pagina5 = new PaginaPojo2 ("5 Broncano ","jibiri jibiri");
 		// creo hashMap			
 		libro2 = new HashMap<Integer, PaginaPojo2> ();
 		//añado elementos al hasmap
@@ -79,6 +79,8 @@ public class PaginaControllerB extends HttpServlet {
 		boolean redirect = false;
 		int paginaPedida = 0;
 		int borrar = 0;
+		String listado= null;
+		
 		
 		
 		try {  // para excepciones. Lo intento
@@ -99,6 +101,9 @@ public class PaginaControllerB extends HttpServlet {
 			// recojo parametro para borrar Pagina.jsp
 			String borrado = request.getParameter("borrar");
 			
+			// recojo parametro para listadoPagina.jsp
+			listado = request.getParameter("listado");
+			
 			
 		// LOGICA AVANCE Y RETROCESO PAGINA
 			// si no parseo dentro de un if me da error
@@ -115,7 +120,7 @@ public class PaginaControllerB extends HttpServlet {
 				paginaActual  = 0;
 			}
 	
-			// Obtener AUTOR Y TEXTO
+			//GENERAR RESPUESTA Obtener AUTOR Y TEXTO
 				// request.setAttribute("datosPagina", libro.get(1)); //CONVERTIR EN DINÁMICO
 				request.setAttribute("datosPagina", libro2.get(paginaActual)); // obtengo el texto y el autor de la pagina actual
 	
@@ -151,28 +156,35 @@ public class PaginaControllerB extends HttpServlet {
 				request.setAttribute("datosPagina", libro2.get(paginaActual));
 				
 			}
-			
+		
 			
 		// LOGICA BORRAR ELEMENTO
-			
+		
 			if (borrado !=null) {
-				
+			//respuesta
 			borrar=Integer.parseInt (borrado);
 				libro2.remove(borrar-1);
-				 
+		
+			}	
+		
+			// logica PARA LISTADO	
+	
+			if (listado !=null) {
+			
+			request.setAttribute("libro2", libro2 ); 
+			redirect=true;
 			
 			}
 			
 			
 		
-			
 		}catch (Exception e){ // CAPTURO EXCEPCIONES
 	
 			e.printStackTrace(); // pinto excepciones
 			
 		}finally{//ENVIAR RESPUESTA		 creo que no hace falta redirect
 			if (redirect==true) {
-				request.getRequestDispatcher("paginasViewB.jsp").forward(request, response);
+				request.getRequestDispatcher("listadoLibro.jsp").forward(request, response);
 				
 				}else {
 					request.getRequestDispatcher("paginasViewB.jsp").forward(request, response);		

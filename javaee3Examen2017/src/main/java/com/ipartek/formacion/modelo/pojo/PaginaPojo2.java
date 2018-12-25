@@ -1,17 +1,30 @@
 package com.ipartek.formacion.modelo.pojo;
 
+import java.util.HashMap;
+
 public class PaginaPojo2 {
 
 
 	private String autor;
 	private String texto;
 	
-	public PaginaPojo2( String autor, String texto) {
+	public PaginaPojo2( ) {
 		super();
 		
 		this.autor = autor;
 		this.texto = texto;
 	}
+
+	
+
+	public PaginaPojo2 (String autor, String texto) {		
+		this();
+		setAutor(autor);
+		setTexto(texto);
+	
+	}
+
+
 
 	@Override
 	public String toString() {
