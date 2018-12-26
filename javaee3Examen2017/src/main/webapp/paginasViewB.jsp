@@ -37,9 +37,10 @@
     <p>paginacion: ${paginaActual+1} / ${paginasTotal} </p>	
 
 <!---------pagina atras y siguiente----------------->
-	<button><a href="paginaCB?pagina=${paginaActual-1}">atras</a></button>          <!-- enviar parametro con la pagina acutal para retroceder-->
-	<button><a href="paginaCB?pagina=${paginaActual+1}">Siguiente</a></button>  	<!-- enviar parametro con la pagina acutal para avanzar-->
 	
+	<button type="button" class="btn btn-primary">Atras<a href="paginaCB?pagina=${paginaActual-1}"></a></button> <!-- enviar parametro con la pagina acutal para retroceder-->
+	<button type="button" class="btn btn-primary">Siguiente<a href="paginaCB?pagina=${paginaActual+1}"></a></button> <!-- enviar parametro con la pagina acutal para avanzar-->
+
 </section>
 	
 <footer>

@@ -1,5 +1,6 @@
 package com.ipartek.formacion.modelo.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,20 +12,19 @@ import com.ipartek.formacion.modelo.pojo.Usuario;
 public class UsuarioDAO {
 	
 	private static UsuarioDAO INSTANCE = null;
-	
+
 	// constructor privado, solo acceso por getInstance()
 	private UsuarioDAO() {
 		super();
-	}	
-	
+	}
+
 	public synchronized static UsuarioDAO getInstance() {
-		
-		if ( INSTANCE == null ) {
+
+		if (INSTANCE == null) {
 			INSTANCE = new UsuarioDAO();
 		}
 		return INSTANCE;
 	}
-	
 	
 	
 	/**

@@ -1,5 +1,6 @@
 package com.ipartek.formacion.modelo.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ public class VideoDAO {
 		return INSTANCE;
 	}
 
-	public Video getById(long id) {  // COMPARA LA ID
+	public Video getById(long id) {
 
 		Video registro = null;
 		String sql = "SELECT id, nombre, url FROM oscar WHERE id= ?;";
@@ -50,7 +51,7 @@ public class VideoDAO {
 		return registro;
 	}
 
-	public ArrayList<Video> getAll() { // COMPARA TODO
+	public ArrayList<Video> getAll() {
 
 		ArrayList<Video> listado = new ArrayList<Video>();
 		String sql = "SELECT id, nombre, url FROM oscar ORDER BY id DESC LIMIT 500;";
@@ -77,7 +78,7 @@ public class VideoDAO {
 		return listado;
 	}
 
-	public ArrayList<Video> getAllByNombre(String nombre) { // COMPARA NOMBRE
+	public ArrayList<Video> getAllByNombre(String nombre) {
 
 		ArrayList<Video> listado = new ArrayList<Video>();
 		String sql = "SELECT id, nombre, url FROM oscar WHERE NOMBRE LIKE ? ORDER BY id DESC LIMIT 500;";

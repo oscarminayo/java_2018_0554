@@ -1,10 +1,11 @@
 package com.ipartek.formacion.modelo.dao;
 
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class ConnectionManager {  // PARA CONECTAR CON BASE DE DATOS
+public class ConnectionManager {
 
 	private static Connection conn;
 	private static final String URL = "jdbc:mysql://192.168.0.44/youtube?useSSL=false";
@@ -29,4 +30,3 @@ public class ConnectionManager {  // PARA CONECTAR CON BASE DE DATOS
 	}
 	
 }
-	

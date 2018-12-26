@@ -43,6 +43,10 @@
 					<li class="nav-item">
 						<a class="nav-link" href="borrarPagina.jsp"><span>BORRAR PAGINA</span></a>
 					</li>    		
+		   	 	<li class="nav-item">
+						<a class="nav-link" href="listadoUsuarios.jsp"><span>usuarios conectados</span></a>
+					</li> 
+		   	 	
 		   	 	</ul>
 		
 		    <form action="paginaCB" method="get" class="form-inline my-2 my-lg-0">

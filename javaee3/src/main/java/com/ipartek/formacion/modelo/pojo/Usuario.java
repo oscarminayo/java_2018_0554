@@ -1,5 +1,4 @@
 package com.ipartek.formacion.modelo.pojo;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -13,9 +12,7 @@ public class Usuario {
 	
 	private Long id;
 		
-	//TODO mirar porque no funciona @Email
-	
-	@NotEmpty   // para validar  NotEmpty or NotNUll
+	@NotEmpty
 	@Email
 	private String email;
 	
