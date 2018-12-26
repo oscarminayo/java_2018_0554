@@ -16,6 +16,13 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.modelo.pojo.LoginPojo;
 
+// filtro para no poder saltarse el login utilizando una url 
+// ejemplo: la app comienza en login.jsp(despues de la redireccion en index) para acceder a paginasView hay que introducir email y password correctos
+// pero tb podriamos acceder poniendo la url 
+//PARA ESTO SE USA EL FILTRO. PARA EVITAR EL ACCESO DE CUALQUIER MANERA QUE NO SEA INTRODUCIENDO LOS DATOS CORRECTOS
+
+// Cambios.  Ruta login por paginaCB http://localhost:8080/javaee3Examen2017/loginpaginaCB  (sin filtro se podria acceder con esta url sin poner datos)
+// Login POjo
 @WebFilter(dispatcherTypes = {
 				DispatcherType.REQUEST, 
 				DispatcherType.FORWARD, 
@@ -42,7 +49,7 @@ public class SeguridadFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse)response;
 		
 		HttpSession session = req.getSession();
-		LoginPojo uLogeado = (LoginPojo)session.getAttribute("usuario");
+		LoginPojo uLogeado = (LoginPojo)session.getAttribute("usuarios");
 		
 		if ( uLogeado != null ) {
 			// contnia la peticion del usuario al servlet/jsp

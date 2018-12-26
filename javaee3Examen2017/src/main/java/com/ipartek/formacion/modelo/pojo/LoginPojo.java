@@ -1,5 +1,11 @@
 package com.ipartek.formacion.modelo.pojo;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.ipartek.formacion.modelo.pojo.PojoException;
 
 public class LoginPojo {
@@ -8,10 +14,15 @@ public class LoginPojo {
 	public static final String REGEX_PASSWORD = "(?=^.{6,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\\s).*$";
 
 
+	@NotEmpty // para validar 
+	@Email // para validar
 	private String email;
+	
+	@NotNull
+	@Size(min=5, max=50)
 	private String password;
 	
-
+	
 	public LoginPojo() throws PojoException {
 		super();
 	

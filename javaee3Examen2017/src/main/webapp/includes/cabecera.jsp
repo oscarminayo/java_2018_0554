@@ -44,7 +44,7 @@
 						<a class="nav-link" href="borrarPagina.jsp"><span>BORRAR PAGINA</span></a>
 					</li>    		
 		   	 	<li class="nav-item">
-						<a class="nav-link" href="listadoUsuarios.jsp"><span>usuarios conectados</span></a>
+						<a class="nav-link" href="listadoUsuarios.jsp"><span>USUARIOS CONECTADOS</span></a>
 					</li> 
 		   	 	
 		   	 	</ul>

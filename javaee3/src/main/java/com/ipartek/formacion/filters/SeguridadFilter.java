@@ -53,7 +53,7 @@ public class SeguridadFilter implements Filter {
 			// contnia la peticion del usuario al servlet/jsp
 			chain.doFilter(request, response);
 		}else {
-			// redigir al login, porque el usuario se ha saltado el login o caducada session
+			// redirigir al login, porque el usuario se ha saltado el login o caducada session
 			res.sendRedirect( req.getContextPath() + "/login");
 		}	
 	}

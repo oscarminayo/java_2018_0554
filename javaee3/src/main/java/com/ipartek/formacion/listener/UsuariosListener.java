@@ -1,14 +1,14 @@
 package com.ipartek.formacion.listener;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
-import com.ipartek.formacion.modelo.pojo.LoginPojo;
+import com.ipartek.formacion.modelo.pojo.Usuario;
 
 /**
  * Application Lifecycle Listener implementation class UsuariosListener
@@ -18,7 +18,7 @@ import com.ipartek.formacion.modelo.pojo.LoginPojo;
 public class UsuariosListener implements HttpSessionAttributeListener {
 
 	//public static HashMap<String, Usuario> usuariosLogeados = new  HashMap<String, Usuario>(); 
-	public static ArrayList<LoginPojo> usuariosLogeados = new ArrayList<LoginPojo>();
+	public static ArrayList<Usuario> usuariosLogeados = new ArrayList<Usuario>();
 	
    
 	/**
@@ -29,7 +29,7 @@ public class UsuariosListener implements HttpSessionAttributeListener {
         
         if ( "usuario".equals(event.getName())) {
         	
-        	usuariosLogeados.add( (LoginPojo) event.getValue() );        	
+        	usuariosLogeados.add( (Usuario) event.getValue() );        	
         	
         	ServletContext appContext = event.getSession().getServletContext();        
             appContext.setAttribute("usuariosLogeados", usuariosLogeados);
@@ -42,7 +42,7 @@ public class UsuariosListener implements HttpSessionAttributeListener {
     public void attributeRemoved(HttpSessionBindingEvent event)  { 
     	 if ( "usuario".equals(event.getName())) {
           	
-          	usuariosLogeados.remove((LoginPojo) event.getValue() );        	
+          	usuariosLogeados.remove((Usuario) event.getValue() );        	
           	
           	ServletContext appContext = event.getSession().getServletContext();        
               appContext.setAttribute("usuariosLogeados", usuariosLogeados);
