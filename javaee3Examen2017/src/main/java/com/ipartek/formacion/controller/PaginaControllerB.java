@@ -3,7 +3,7 @@ package com.ipartek.formacion.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.Set;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,8 +11,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
-import com.ipartek.formacion.modelo.pojo.LoginPojo;
 
 import com.ipartek.formacion.modelo.pojo.PaginaPojo2;
 
@@ -31,20 +34,30 @@ public class PaginaControllerB extends HttpServlet {
 	private HashMap<Integer, PaginaPojo2> libro2 = new  HashMap<Integer, PaginaPojo2>();
 	 
 	
+	// para validation
+	private ValidatorFactory factory;
+	private Validator validator;
+	
+	
+	
 // METODO INIT
 	@Override
 	public void init(ServletConfig config) throws ServletException {  // PREGUNTAR QUE METODO ES ESTE Y PORQUE METO EL ARRAYLIST AQUI.	
 	super.init(config);
+	
+	// PARA VALIDATION
+	factory  = Validation.buildDefaultValidatorFactory();
+	validator  = factory.getValidator();
 				
 	//ARRAY LIST
 		//Creo array list	
 		libro = new ArrayList <PaginaPojo2>(); //Creo array list
 		// añado elementos al arraylist
-		libro.add(new PaginaPojo2("Erase un hombre a una nariz pegado","1.Cervantes"));
-		libro.add( new PaginaPojo2("Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra?", "2.Jose Luis Cuerda "));
-		libro.add( new PaginaPojo2("no lo se no lo se no le se", "3.Miguel Noguera"));
-		libro.add( new PaginaPojo2("grito sordo", "4.Ignatius"));
-		libro.add( new PaginaPojo2("jibiri jibiri", "5.Broncano "));
+		libro.add(new PaginaPojo2("1.Cervantes","Erase un hombre a una nariz pegado"));
+		libro.add( new PaginaPojo2("2.Jose Luis Cuerda ","Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra?" ));
+		libro.add( new PaginaPojo2("3.Miguel Noguera","no lo se no lo se no le se" ));
+		libro.add( new PaginaPojo2("4.Ignatius","grito sordo" ));
+		libro.add( new PaginaPojo2( "5.Broncano","jibiri jibiri"));
 					
 	//HASHMAP
 		//Creo objetos de clase PaginaPojo 
@@ -61,7 +74,8 @@ public class PaginaControllerB extends HttpServlet {
 		libro2.put(2,pagina3);
 		libro2.put(3,pagina4);
 		libro2.put(4,pagina5);
-
+		
+	
 	}
 				
 //DOGET
@@ -83,6 +97,7 @@ public class PaginaControllerB extends HttpServlet {
 		
 		
 		
+	
 		try {  // para excepciones. Lo intento
 
 		// RECOGER PARAMETROS
@@ -110,15 +125,17 @@ public class PaginaControllerB extends HttpServlet {
 			if (obtenerPaginaActual != null){	
 				//Parseo de paginaActual
 				paginaActual = Integer.parseInt(obtenerPaginaActual);    // como recibo un string del .jsp lo parseo y lo convierto en entero	
+			
+				// para ultima pagina
+				if (paginaActual > (libro2.size()-1)) {  // -1 para que coincidan los numeros a nivel usuario. ( se debe a contar la posicion 0)
+					paginaActual  = (libro2.size()-1);
+				}
+				// para primera pagina
+				if (paginaActual < 0) {  // si pongo el tamaño del array se chafa tengo que poner uno menos por lo tanto he creado un elemento mas en el array list.  vacio para solucionar esto 
+					paginaActual  = 0;
+				}
 			}
-			// para ultima pagina
-			if (paginaActual > (libro2.size()-1)) {  // -1 para que coincidan los numeros a nivel usuario. ( se debe a contar la posicion 0)
-				paginaActual  = (libro2.size()-1);
-			}
-			// para primera pagina
-			if (paginaActual < 0) {  // si pongo el tamaño del array se chafa tengo que poner uno menos por lo tanto he creado un elemento mas en el array list.  vacio para solucionar esto 
-				paginaActual  = 0;
-			}
+			
 	
 			//GENERAR RESPUESTA Obtener AUTOR Y TEXTO
 				// request.setAttribute("datosPagina", libro.get(1)); //CONVERTIR EN DINÁMICO
@@ -128,7 +145,7 @@ public class PaginaControllerB extends HttpServlet {
 				request.setAttribute("paginaActual", (paginaActual)); // 
 				request.setAttribute("paginasTotal", (libro2.size())); // 
 		
-		//---FIN LOGICA AVANCE RETROCESO
+	
 		
 		// LOGICA BUSCAR PAGINA	
 			
@@ -139,41 +156,47 @@ public class PaginaControllerB extends HttpServlet {
 				//Genero respuesta PAGINA ACTUAL Y AUTOR Y TEXTO y DIRECCION
 				request.setAttribute("paginaActual", (paginaActual));  			// pagina Actual
 				request.setAttribute("datosPagina", libro2.get(paginaActual)); 	// autor y texto
-				redirect=true; 													// direccion
+																// direccion
 			}
 			
+			
 		// LOGICA CREAR PAGINA	
-		
-			if (nuevoTexto!= null && nuevoAutor!=null) {  
-				
-				PaginaPojo2 nuevaPagina = new PaginaPojo2 (nuevoAutor,nuevoTexto);	 // Creo nuevo objeto para añadir al hashmap 
+		 // to do javax validation
+			
+				if (nuevoTexto!= null && nuevoAutor!=null) {  
+			
+				PaginaPojo2 nuevaPagina = new PaginaPojo2 (nuevoAutor,nuevoTexto);	
+	    
+				// Creo nuevo objeto para añadir al hashmap 
 				libro2.put((libro2.size() ),nuevaPagina);  // añado nuevo objeto con los datos de los parametrosal hasmap	
 				paginaActual=(libro2.size()-1); 
-				
+	   
 				// Genero respuesta para PAGINA ACTUAL, TOTAL , AUTOR Y TEXTO
 				request.setAttribute("paginaActual", (paginaActual)); // 
 				request.setAttribute("paginasTotal", (libro2.size()));
 				request.setAttribute("datosPagina", libro2.get(paginaActual));
-				
+				redirect = false;
 			}
 		
 			
+				
+				
 		// LOGICA BORRAR ELEMENTO
 		
 			if (borrado !=null) {
 			//respuesta
 			borrar=Integer.parseInt (borrado);
 				libro2.remove(borrar-1);
-		
 			}	
 		
-			// logica PARA LISTADO	
-	
-			if (listado !=null) {
+		
 			
-			request.setAttribute("libro2", libro2 ); 
-			redirect=true;
-			
+			// LOGICA PARA LISTADO	
+			// to do con el hashmap
+			if (listado !=null) {			
+				request.setAttribute("libro", libro ); 
+				redirect=true;
+			// PROBLEMA CON EL CAMBIO DE HASHMAP A ARRAYLIST
 			}
 			
 			

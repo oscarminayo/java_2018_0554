@@ -2,11 +2,20 @@ package com.ipartek.formacion.modelo.pojo;
 
 import java.util.HashMap;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+
 public class PaginaPojo2 {
 
-
-	private String autor;
+	@NotEmpty
+	@Size(min=50, max=255)
 	private String texto;
+	
+	@NotEmpty
+	@Size(min=2, max=50)
+	private String autor;
 	
 	public PaginaPojo2( ) {
 		super();

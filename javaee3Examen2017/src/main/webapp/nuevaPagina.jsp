@@ -15,7 +15,7 @@
 			</p>
 			<p>
 				<label for="texto">Texto</label>
-				<textarea  rows="15" cols="40" name="texto"></textarea>
+				<textarea  rows="15" cols="40" name="texto" placeholder="minimo 50 caracteres"></textarea>
 			</p>
 			<button type ="submit">Aceptar</button>
 			

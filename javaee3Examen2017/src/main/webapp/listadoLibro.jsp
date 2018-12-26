@@ -1,7 +1,8 @@
 
 <%@ include file="../includes/cabecera.jsp"  %>
 
- 
+<%@ page import= "com.ipartek.formacion.modelo.pojo.PaginaPojo2"  %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,17 +22,20 @@
     </thead>
     <tbody>
 
-    
+     <c:forEach items="${libro}" var="v">
+      <tr>
+        <td>${v.autor}</td> <!-- aqui esta el fallo del listado el bucle lo hace bien -->
+        <td>${v.texto}</td>						
+      </tr>
+      </c:forEach>
+      
     </tbody>
   </table>
   </div>
-  
-  
-  <c:forEach items="${libro2}" var="v">
-      <tr>
-        <td>${v.getAutor}</td> <!-- aqui esta el fallo del listado el bucle lo hace bien -->
-        <td>${v.getTexto}</td>						
-      </tr>
-      </c:forEach>
+    
+ 
+      
+      
+
 </body>
 </html>
