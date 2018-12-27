@@ -1,2 +1,5 @@
-COMENZAMOS CON EL EXAMEN
-ANIMO
+
+	<!--  redireccion a servlet  -->
+	
+	<% response.sendRedirect ("login.jsp"); %>
+

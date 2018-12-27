@@ -21,6 +21,8 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
+
+
 import com.ipartek.formacion.modelo.ConnectionManager;
 import com.ipartek.formacion.modelo.dao.UsuarioDAO;
 import com.ipartek.formacion.modelo.pojo.Usuario;
