@@ -18,6 +18,7 @@ import javax.validation.ValidatorFactory;
 
 
 import com.ipartek.formacion.modelo.pojo.HomePojo;
+import com.ipartek.formacion.modelo.pojo.LoginPojo;
 
 /**
  * Servlet implementation class PaginaControllerB
@@ -37,6 +38,7 @@ public class HomeController extends HttpServlet {
 	// para validation
 	private ValidatorFactory factory;
 	private Validator validator;
+	
 	
 	
 	
@@ -75,7 +77,8 @@ public class HomeController extends HttpServlet {
 		libro2.put(3,pagina4);
 		libro2.put(4,pagina5);
 		
-	
+		
+		
 	}
 				
 //DOGET
@@ -95,8 +98,7 @@ public class HomeController extends HttpServlet {
 		int borrar = 0;
 		String listado= null;
 		
-		
-		
+
 	
 		try {  // para excepciones. Lo intento
 
@@ -118,6 +120,9 @@ public class HomeController extends HttpServlet {
 			
 			// recojo parametro para listadoPagina.jsp
 			listado = request.getParameter("listado");
+			
+			// recojo parametro para usuario
+			String usuarioEmail = request.getParameter("usuarioEmail");
 			
 			
 		// LOGICA AVANCE Y RETROCESO PAGINA
@@ -199,10 +204,12 @@ public class HomeController extends HttpServlet {
 			// PROBLEMA CON EL CAMBIO DE HASHMAP A ARRAYLIST
 			}
 			
-			// LOGICA PARA LISTADO	en principal
 			
-					
-				request.setAttribute("libro", libro ); 
+			if (usuarioEmail.equals("")== false) {
+			request.setAttribute("usuarioEmail", usuarioEmail ); 	// respuesta para logout
+			}
+			
+			request.setAttribute("libro", libro ); // respuesta PARA LISTADO	en principal
 				
 			// PROBLEMA CON EL CAMBIO DE HASHMAP A ARRAYLIST
 			

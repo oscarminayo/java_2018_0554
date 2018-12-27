@@ -36,6 +36,9 @@
 		
 		  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 		    	<ul class="navbar-nav  mr-auto mt-2 mt-lg-0">
+		      			      		
+		   <!-- mostrar nombre usuario-->
+					 <li><span class="badge badge-light mr-3">${usuario.email}</span></li>
 		      		<li class="nav-item">
 		        		<a class="nav-link" href="login"><span><fmt:message key="navbar.login"/></span></a>
 		      		</li>
@@ -54,7 +57,7 @@
 	   	 	
 		   	 	</ul>
 		
-		    <form action="home" method="get" class="form-inline my-2 my-lg-0">
+		    <form action="home" method="get" class="form-inline my-2 my-lg-0">		
 				<p>
 				<input class="form-control mr-sm-2" type="number"  name="buscarPagina" id="buscarPagina" placeholder=<fmt:message key="navbar.buscar"/>/>
 				</p>	

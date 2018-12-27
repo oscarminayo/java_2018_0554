@@ -39,6 +39,8 @@ public class LoginController extends HttpServlet {
 	// array list
 	private static ArrayList<LoginPojo> usuarios;
 	
+	LoginPojo usuario = new LoginPojo();
+	
 	// METODO INIT  // me he pasado horas pensando que no estaba bien el programa y todo ha sido por no crear los elementos del array aqui
 			
 	
@@ -76,7 +78,7 @@ public class LoginController extends HttpServlet {
 	
 		try {	
 			// para logout // tb se usará para validator pero no se usarlo aun
-			LoginPojo usuario = new LoginPojo();
+			
 			usuario.setEmail(email);
 			usuario.setPassword(password);
 			
@@ -86,7 +88,9 @@ public class LoginController extends HttpServlet {
 			
 			for ( LoginPojo f : usuarios){
 				if (f.getEmail().equals(email)&& f.getPassword().equals(password)){
-					vista = VISTA_ACCESO;	
+					vista = VISTA_ACCESO;
+					session.setAttribute("usuarioEmail", usuario.getEmail()); // // para mostrar usuario
+					session.setAttribute("usuario", usuario); // para logout // tambien para validator pero aun no se usarlo
 				}else if (f.getEmail().equals(email)&& f.getPassword().equals(password)==false){
 					vista = VISTA_EMPEZAR;				
 					request.setAttribute("error", " Password incorrecto");	
@@ -98,7 +102,8 @@ public class LoginController extends HttpServlet {
 					request.setAttribute("error", " Email y password incorrectos");
 				}
 				session.setAttribute("idioma", idioma );  // modifico atributo idioma
-				session.setAttribute("usuario", usuario); // para logout // tambien para validator pero aun no se usarlo
+			
+				 
 			}
 		
 				
