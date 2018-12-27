@@ -21,6 +21,7 @@ import com.ipartek.formacion.modelo.pojo.LoginPojo;
 
 
 
+
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	
@@ -74,8 +75,15 @@ public class LoginController extends HttpServlet {
 		String idioma = request.getParameter("idioma");
 	
 		try {	
+			// para logout // tb se usará para validator pero no se usarlo aun
+			LoginPojo usuario = new LoginPojo();
+			usuario.setEmail(email);
+			usuario.setPassword(password);
 			
 			HttpSession session = request.getSession();  // creo session para enviar sesion.setatribute   para idiomas
+			
+			// mi validacion // al no saber usar validator 
+			
 			for ( LoginPojo f : usuarios){
 				if (f.getEmail().equals(email)&& f.getPassword().equals(password)){
 					vista = VISTA_ACCESO;	
@@ -90,8 +98,10 @@ public class LoginController extends HttpServlet {
 					request.setAttribute("error", " Email y password incorrectos");
 				}
 				session.setAttribute("idioma", idioma );  // modifico atributo idioma
+				session.setAttribute("usuario", usuario); // para logout // tambien para validator pero aun no se usarlo
+			}
+		
 				
-			}			
 		}catch (Exception e) {
 			e.printStackTrace();		
 		}finally {
