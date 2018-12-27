@@ -4,10 +4,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
+<!-- IDIOMAS -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="idioma" value="${not empty sessionScope.idioma ? sessionScope.idioma : 'es_ES'}" scope="session" /> <!--  CREAR VARIABLE -->
+<fmt:setLocale value="${idioma}" />  <!-- SETEAR LOCALE -->
+<fmt:setBundle basename="i18nmessages" /> <!-- CARGAR FICHERO PROPERTIES -->
+
+<!doctype html>
+<html lang="${idioma}"> <!--  INDICAR IDIOMA -->
+<!-- FIN IDIOMAS -->
 
 <title>CABECERA</title>
 
@@ -29,29 +37,29 @@
 		  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 		    	<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="login"><span>LOGIN</span></a>
+		        		<a class="nav-link" href="login"><span><fmt:message key="navbar.login"/></span></a>
 		      		</li>
 		      		
 		     		 <li class="nav-item">
-		        		<a class="nav-link"href="logout"><span>LOGOUT</span></a>
+		        		<a class="nav-link"href="logout"><span><fmt:message key="navbar.logout"/></span></a>
 		      		</li>
 		      		
 		      		<li class="nav-item">
-		      			<a class="nav-link" href="nuevaPagina.jsp"><span>CREAR NUEVA PAGINA</span></a> 
+		      			<a class="nav-link" href="nuevaPagina.jsp"><span><fmt:message key="navbar.nueva"/></span></a> 
 		      		</li> <!-- AGREGAR NUEVA PAGINA -->
 		      		
 					<li class="nav-item">
-						<a class="nav-link" href="borrarPagina.jsp"><span>BORRAR PAGINA</span></a>
+						<a class="nav-link" href="borrarPagina.jsp"><span><fmt:message key="navbar.borrar"/></span></a>
 					</li>    		
 		   	 	<li class="nav-item">
-						<a class="nav-link" href="listadoUsuarios.jsp"><span>USUARIOS CONECTADOS</span></a>
+						<a class="nav-link" href="listadoUsuarios.jsp"><span><fmt:message key="navbar.usuarios"/></span></a>
 					</li> 
 		   	 	
 		   	 	</ul>
 		
 		    <form action="paginaCB" method="get" class="form-inline my-2 my-lg-0">
 				<p>
-				<input class="form-control mr-sm-2" type="number"  name="buscarPagina" id="buscarPagina" placeholder="busca una pagina"/>
+				<input class="form-control mr-sm-2" type="number"  name="buscarPagina" id="buscarPagina" placeholder=<fmt:message key="navbar.buscar"/>/>
 				</p>	
 			</form>  
 		  </div>

@@ -9,11 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import javax.validation.Validation;  //validation api no se usarla
 import javax.validation.ConstraintViolation;//validation api
 import javax.validation.Validator;//validation api
 import javax.validation.ValidatorFactory;//validation api
+
+
 
 import com.ipartek.formacion.modelo.pojo.LoginPojo;
 
@@ -25,7 +27,9 @@ public class LoginController extends HttpServlet {
 	// variables 
 	private static final long serialVersionUID = 1L;
 	private static final String VISTA_EMPEZAR = "login.jsp";
-	private static final String VISTA_ACCESO = "/privado/paginaCB";
+	private static final String VISTA_ACCESO = "paginaCB";
+	
+
 	
 	private ValidatorFactory factory;//validation api
 	private Validator validator;//validation api
@@ -65,9 +69,13 @@ public class LoginController extends HttpServlet {
 		
 		// recoger parametros de formularo login
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");		
+		String password = request.getParameter("password");	
+
+		String idioma = request.getParameter("idioma");
 	
 		try {	
+			
+			HttpSession session = request.getSession();  // creo session para enviar sesion.setatribute   para idiomas
 			for ( LoginPojo f : usuarios){
 				if (f.getEmail().equals(email)&& f.getPassword().equals(password)){
 					vista = VISTA_ACCESO;	
@@ -81,7 +89,7 @@ public class LoginController extends HttpServlet {
 					vista = VISTA_EMPEZAR;
 					request.setAttribute("error", " Email y password incorrectos");
 				}
-				
+				session.setAttribute("idioma", idioma );  // modifico atributo idioma
 				
 			}			
 		}catch (Exception e) {

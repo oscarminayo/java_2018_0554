@@ -1,8 +1,18 @@
 
+<!-- IDIOMAS -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:set var="idioma" value="${not empty sessionScope.idioma ? sessionScope.idioma : 'es_ES'}" scope="session" /> <!--  CREAR VARIABLE -->
+<fmt:setLocale value="${idioma}" />  <!-- SETEAR LOCALE -->
+<fmt:setBundle basename="i18nmessages" /> <!-- CARGAR FICHERO PROPERTIES -->
 
 <!doctype html>
-<html lang="en">
+<html lang="${idioma}"> <!--  INDICAR IDIOMA -->
+<!-- FIN IDIOMAS -->
+
+<title>LOGIN</title>
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -46,11 +56,18 @@
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 		</p>
 		
-		<c:if "${ error.equals("")}"==false>	  
+		 <label for="idioma">Selecciona un Idioma</label>
+       <select name="idioma" class="form-control mb-5">
+       		<option value="eu_ES" selected>Euskera</option>
+       		<option value="es_ES">Castellano</option>      	
+       </select>
+		
+	 <c:if test="${not empty error}">	  
 		 <div class="alert alert-danger alert-dismissible fade show" role="alert">
 		  ${error}			 
 		 </div>	 	
-	  </c:if> 
+	  </c:if>   	
+	
 	  
 	</fieldset>
 </form>
