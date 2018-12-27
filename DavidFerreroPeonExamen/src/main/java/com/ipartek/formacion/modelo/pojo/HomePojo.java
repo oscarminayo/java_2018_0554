@@ -9,19 +9,19 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class HomePojo {
 
-	@NotEmpty
-	@Size(min=50, max=255)
+
 	private String texto;
-	
-	@NotEmpty
-	@Size(min=2, max=50)
+
 	private String autor;
+	
+	private String imagen;
 	
 	public HomePojo( ) {
 		super();
 		
 		this.autor = autor;
 		this.texto = texto;
+		this.imagen = imagen;
 	}
 
 	
@@ -31,6 +31,25 @@ public class HomePojo {
 		setAutor(autor);
 		setTexto(texto);
 	
+	}
+	public HomePojo (String autor, String texto, String imagen) {		
+		this();
+		setAutor(autor);
+		setTexto(texto);
+		setImagen(imagen);
+	
+	}
+
+
+
+	public String getImagen() {
+		return imagen;
+	}
+
+
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 

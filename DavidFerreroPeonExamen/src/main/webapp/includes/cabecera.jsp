@@ -3,8 +3,6 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
-
 <!-- IDIOMAS -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -14,10 +12,13 @@
 <fmt:setBundle basename="i18nmessages" /> <!-- CARGAR FICHERO PROPERTIES -->
 
 <!doctype html>
+
+
 <html lang="${idioma}"> <!--  INDICAR IDIOMA -->
 <!-- FIN IDIOMAS -->
 
-<title>CABECERA</title>
+
+</head>
 
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -25,14 +26,12 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-
-<link rel="stylesheet" href="CSS/extra.css">
+<!-- link a CSS -->	
+<link rel="stylesheet" href="CSS/cabecera.css">
 
 </head>
-	<body>
-		<nav class="navbar-expand-sm   navbar-dark bg-secondary  navbar" >  <!-- kitar navbar para cambiar color y cambiar palabra secondary por otra danger es rojo por ejemplo mirar en bootstrap el problema es que deja de funcionar los colores hover y focus del css extra-->
-		
-		
+	<header>
+		<nav class="navbar navbar-expand-sm   navbar-dark bg-primary " >  <!-- kitar navbar para cambiar color y cambiar palabra secondary por otra danger es rojo por ejemplo mirar en bootstrap el problema es que deja de funcionar los colores hover y focus del css extra-->	
 		  <button class= "navbar-expand-sm   navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation"></button>
 		
 		  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
@@ -52,9 +51,7 @@
 					<li class="nav-item">
 					<a class="nav-link" href="home?listado=ok"><span><fmt:message key="navbar.listado"/></span></a> 	
 		      		</li> <!-- AGREGAR NUEVA PAGINA -->
-		      		
-					
-		   	 	
+	   	 	
 		   	 	</ul>
 		
 		    <form action="home" method="get" class="form-inline my-2 my-lg-0">
@@ -64,5 +61,5 @@
 			</form>  
 		  </div>
 		</nav>
-	</body>
+	</header>
 </html>

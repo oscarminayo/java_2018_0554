@@ -1,4 +1,4 @@
-<%@page import= "com.ipartek.formacion.modelo.pojo.PaginaPojo2" %>
+<%@page import= "com.ipartek.formacion.modelo.pojo.PaginaPojo2" %> <!-- page para importar clases etc-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,7 @@
 </head>
 
 <header>
-	<%@ include file="../includes/cabecera.jsp"  %>
+	<%@ include file="../includes/cabecera.jsp"  %> <!-- include para incluir otro archivo -->
 </header>
 	<body>
 	<section>  

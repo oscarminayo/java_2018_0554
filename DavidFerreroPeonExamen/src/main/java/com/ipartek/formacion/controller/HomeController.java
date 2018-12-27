@@ -53,11 +53,11 @@ public class HomeController extends HttpServlet {
 		//Creo array list	
 		libro = new ArrayList <HomePojo>(); //Creo array list
 		// añado elementos al arraylist
-		libro.add(new HomePojo("1.Cervantes","Erase un hombre a una nariz pegado"));
-		libro.add( new HomePojo("2.Jose Luis Cuerda ","Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra?" ));
-		libro.add( new HomePojo("3.Miguel Noguera","no lo se no lo se no le se" ));
-		libro.add( new HomePojo("4.Ignatius","grito sordo" ));
-		libro.add( new HomePojo( "5.Broncano","jibiri jibiri"));
+		libro.add(new HomePojo("1.Cervantes","Erase un hombre a una nariz pegado","media\\pa1.jpg"));
+		libro.add( new HomePojo("2.Jose Luis Cuerda ","Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra","media\\micro.jpg" ));
+		libro.add( new HomePojo("3.Miguel Noguera","no lo se no lo se no le se","media\\pa1.jpg" ));
+		libro.add( new HomePojo("4.Ignatius","grito sordo","media\\micro.jpg" ));
+		libro.add( new HomePojo( "5.Broncano","jibiri jibiri","media\\pa1.jpg"));
 					
 	//HASHMAP
 		//Creo objetos de clase PaginaPojo 
@@ -191,13 +191,20 @@ public class HomeController extends HttpServlet {
 		
 		
 			
-			// LOGICA PARA LISTADO	
+			// LOGICA PARA LISTADO	en listado.jsp
 			// to do con el hashmap
 			if (listado !=null) {			
 				request.setAttribute("libro", libro ); 
 				redirect=true;
 			// PROBLEMA CON EL CAMBIO DE HASHMAP A ARRAYLIST
 			}
+			
+			// LOGICA PARA LISTADO	en principal
+			
+					
+				request.setAttribute("libro", libro ); 
+				
+			// PROBLEMA CON EL CAMBIO DE HASHMAP A ARRAYLIST
 			
 			
 		
@@ -210,6 +217,7 @@ public class HomeController extends HttpServlet {
 				request.getRequestDispatcher("listado.jsp").forward(request, response);
 				
 				}else {
+					request.setAttribute("libro", libro ); // para datos productos
 					request.getRequestDispatcher("principal.jsp").forward(request, response);		
 				}
 		}
