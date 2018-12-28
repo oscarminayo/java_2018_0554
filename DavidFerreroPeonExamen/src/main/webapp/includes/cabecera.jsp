@@ -38,7 +38,7 @@
 		    	<ul class="navbar-nav  mr-auto mt-2 mt-lg-0">
 		      			      		
 		   <!-- mostrar nombre usuario-->
-					 <li><span class="badge badge-light mr-3">${usuario.email}</span></li>
+				
 		      		<li class="nav-item">
 		        		<a class="nav-link" href="login"><span><fmt:message key="navbar.login"/></span></a>
 		      		</li>
@@ -49,19 +49,25 @@
 		      		
 		      		<li class="nav-item">
 		      			<a class="nav-link" href="nuevo.jsp"><span><fmt:message key="navbar.nueva"/></span></a> 
-		      		</li> <!-- AGREGAR NUEVA PAGINA -->
+		      		</li> 
 		      		
 					<li class="nav-item">
 					<a class="nav-link" href="home?listado=ok"><span><fmt:message key="navbar.listado"/></span></a> 	
-		      		</li> <!-- AGREGAR NUEVA PAGINA -->
+		      		</li> 
+	   	 			
+					<li class="nav-item">
+					<a class="nav-link" href="saludo.jsp"><span><fmt:message key="navbar.saludoP"/></span></a> 	
+		      		</li> 
+	   	 	
+	   	 			<li class="nav-item">
+					<a class="nav-link" href="saludo?nombre=David&apellido1=Ferrero&apellido2=Peon"><span><fmt:message key="navbar.saludoG"/></span></a> 	
+		      		</li> 
 	   	 	
 		   	 	</ul>
 		
-		    <form action="home" method="get" class="form-inline my-2 my-lg-0">		
-				<p>
-				<input class="form-control mr-sm-2" type="number"  name="buscarPagina" id="buscarPagina" placeholder=<fmt:message key="navbar.buscar"/>/>
-				</p>	
-			</form>  
+				 <h5>Usuario conectado:</h5>  
+				 <h3><span class="badge badge-light mr-3">${usuario.email}</span></h3>
+			
 		  </div>
 		</nav>
 	</header>

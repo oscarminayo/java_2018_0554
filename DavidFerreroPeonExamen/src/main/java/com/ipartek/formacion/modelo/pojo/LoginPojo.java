@@ -31,13 +31,6 @@ public class LoginPojo {
 
 	public void setEmail(String email) throws PojoException {
 
-		if (email == null || email.trim().length() == 0) {
-			throw new PojoException(PojoException.EXCEPTION_EMAIL_VACIO);
-		}
-
-		if (!email.matches(REGEX_EMAIL)) {
-			throw new PojoException(PojoException.EXCEPTION_EMAIL_NO_VALIDO);
-		}
 
 		this.email = email;
 	}
@@ -48,13 +41,7 @@ public class LoginPojo {
 
 	public void setPassword(String password) throws PojoException {
 
-		if (password == null || password.trim().length() == 0) {
-			throw new PojoException(PojoException.EXCEPTION_PASSWORD_VACIO);
-		}
-
-		if (!password.matches(REGEX_PASSWORD)) {
-			throw new PojoException(PojoException.EXCEPTION_PASSWORD_NO_VALIDO);
-		}
+	
 
 		this.password = password;
 	}

@@ -6,66 +6,99 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-
 public class HomePojo {
 
+	private String raza;
 
-	private String texto;
+	private String nombre;
 
-	private String autor;
-	
 	private String imagen;
-	
-	public HomePojo( ) {
+
+	private int edad, peso;
+	private int chip;
+
+	public HomePojo() {
 		super();
-		
-		this.autor = autor;
-		this.texto = texto;
+
+		this.nombre = nombre;
+		this.raza = raza;
 		this.imagen = imagen;
+		this.edad = edad;
+		this.peso = peso;
+		this.chip = chip;
+
 	}
 
-	
-
-	public HomePojo (String autor, String texto) {		
+	public HomePojo(String nombre, String raza, String imagen) {
 		this();
-		setAutor(autor);
-		setTexto(texto);
-	
-	}
-	public HomePojo (String autor, String texto, String imagen) {		
-		this();
-		setAutor(autor);
-		setTexto(texto);
+		setNombre(nombre);
+		setRaza(raza);
 		setImagen(imagen);
-	
+
+	}
+	public HomePojo(String nombre, String raza, int chip) {
+		this();
+		setNombre(nombre);
+		setRaza(raza);
+		setChip(chip);
+
 	}
 
+	public HomePojo(String nombre, String raza, String imagen, int edad, int peso, int chip) {
+		this();
+		setNombre(nombre);
+		setRaza(raza);
+		setImagen(imagen);
+		setEdad(edad);
+		setPeso(peso);
+		setChip(chip);
 
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public int getPeso() {
+		return peso;
+	}
+
+	public void setPeso(int peso) {
+		this.peso = peso;
+	}
+
+	public int getChip() {
+		return chip;
+	}
+
+	public void setChip(int chip) {
+		this.chip = chip;
+	}
 
 	public String getImagen() {
 		return imagen;
 	}
 
-
-
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Pagina [ autor=" + autor + ", texto=" + texto + "]";
+		return "Pagina [ nombre=" + nombre + ", raza=" + raza + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((autor == null) ? 0 : autor.hashCode());
-		result = prime * result + ((texto == null) ? 0 : texto.hashCode());
-		
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((raza == null) ? 0 : raza.hashCode());
+
 		return result;
 	}
 
@@ -78,40 +111,34 @@ public class HomePojo {
 		if (getClass() != obj.getClass())
 			return false;
 		HomePojo other = (HomePojo) obj;
-		if (autor == null) {
-			if (other.autor != null)
+		if (nombre == null) {
+			if (other.nombre != null)
 				return false;
-		} else if (!autor.equals(other.autor))
+		} else if (!nombre.equals(other.nombre))
 			return false;
-		if (texto == null) {
-			if (other.texto != null)
+		if (raza == null) {
+			if (other.raza != null)
 				return false;
-		} else if (!texto.equals(other.texto))
+		} else if (!raza.equals(other.raza))
 			return false;
-		
+
 		return true;
 	}
 
-	
-
-	public String getAutor() {
-		return autor;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setAutor(String autor) {
-		this.autor = autor;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getTexto() {
-		return texto;
+	public String getRaza() {
+		return raza;
 	}
 
-	public void setTexto(String texto) {
-		this.texto = texto;
+	public void setRaza(String raza) {
+		this.raza = raza;
 	}
 
-	
-
-	
-	
 }

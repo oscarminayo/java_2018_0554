@@ -1,5 +1,5 @@
 
 	<!--  redireccion a servlet  -->
 	
-	<% response.sendRedirect ("principal.jsp"); %>
+	<% response.sendRedirect ("login.jsp"); %>
 

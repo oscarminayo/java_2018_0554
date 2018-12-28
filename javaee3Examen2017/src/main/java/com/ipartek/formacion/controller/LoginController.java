@@ -46,7 +46,7 @@ public class LoginController extends HttpServlet {
 			public void init(ServletConfig config) throws ServletException {  // PREGUNTAR QUE METODO ES ESTE Y PORQUE METO EL ARRAYLIST AQUI.	
 			super.init(config);
 		    	usuarios = new ArrayList <LoginPojo>();
-		    	usuarios.add(new LoginPojo("xabier@ipartek.com","Pa$$w0rd"));
+		    	usuarios.add(new LoginPojo("scobby","galletas"));
 		    	usuarios.add(new LoginPojo("dfp@ipartek.com","Pa$$w0rd"));
 		    	
 		    	

@@ -25,98 +25,74 @@ import com.ipartek.formacion.modelo.pojo.LoginPojo;
  */
 @WebServlet("/home")
 public class HomeController extends HttpServlet {
-	
-// CONTSTANTES, VARIABLES, OBJETOS Y COLECCIONES
-	// Constante genereada por eclipse
+
 	private static final long serialVersionUID = 1L;
-	//ArrayList
-	private ArrayList<HomePojo> libro; // declaro array list
-	//HashMap	
-	private HashMap<Integer, HomePojo> libro2 = new  HashMap<Integer, HomePojo>();
-	 
 	
-	// para validation
-	private ValidatorFactory factory;
-	private Validator validator;
-	
-	
+	private ArrayList<HomePojo> perros; // declaro array list
 	
 	
 // METODO INIT
 	@Override
 	public void init(ServletConfig config) throws ServletException {  // PREGUNTAR QUE METODO ES ESTE Y PORQUE METO EL ARRAYLIST AQUI.	
 	super.init(config);
-	
-	// PARA VALIDATION
-	factory  = Validation.buildDefaultValidatorFactory();
-	validator  = factory.getValidator();
-				
-	//ARRAY LIST
-		//Creo array list	
-		libro = new ArrayList <HomePojo>(); //Creo array list
-		// añado elementos al arraylist
-		libro.add(new HomePojo("1.Cervantes","Erase un hombre a una nariz pegado","media\\pa1.jpg"));
-		libro.add( new HomePojo("2.Jose Luis Cuerda ","Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra","media\\micro.jpg" ));
-		libro.add( new HomePojo("3.Miguel Noguera","no lo se no lo se no le se","media\\pa1.jpg" ));
-		libro.add( new HomePojo("4.Ignatius","grito sordo","media\\micro.jpg" ));
-		libro.add( new HomePojo( "5.Broncano","jibiri jibiri","media\\pa1.jpg"));
-					
-	//HASHMAP
-		//Creo objetos de clase PaginaPojo 
-		HomePojo pagina1 = new HomePojo ("1 Cervantes", "Erase un hombre a una nariz pegado");	
-		HomePojo pagina2 = new HomePojo ("2 Jose Luis Cuerda ","Todo ocurre en un pueblo de la mancha, me puedo sacar la chorra?");
-		HomePojo pagina3= new HomePojo ( "3 Miguel Noguera","no lo se no lo se no le se");
-		HomePojo pagina4 = new HomePojo ("4 Ignatius","grito sordo");
-		HomePojo pagina5 = new HomePojo ("5 Broncano ","jibiri jibiri");
-		// creo hashMap			
-		libro2 = new HashMap<Integer, HomePojo> ();
-		//añado elementos al hasmap
-		libro2.put(0,pagina1);
-		libro2.put(1,pagina2);
-		libro2.put(2,pagina3);
-		libro2.put(3,pagina4);
-		libro2.put(4,pagina5);
+
+		perros = new ArrayList <HomePojo>(); //Creo array list
 		
-		
+		perros.add(new HomePojo("Negu","PerroAguas","media/perroAguas.jpg",6,18,1133312018));
+		perros.add( new HomePojo("Pluto ","Gran Danes","media/granDanes.jpg",3,9,1133322018));
+		perros.add( new HomePojo("Rex","Pastor Aleman","media/pastoAleman.jpg",1,12,1133332018 ));
+		perros.add( new HomePojo("Tolo","milrazas","media/sinRaza.jpg",8,35,1133342018 ));
+		perros.add( new HomePojo("Laika","Pasto Belga","media/pastorBelga.jpg",11,45,1133352018));
 		
 	}
 				
-//DOGET
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request, response);	//Lo que recibo por deGet lo envio a doPost
+		doPost(request, response);	
 	}
 
-//DOPOST	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// Inizializo variables
 		int paginaActual=0;// Inicializo variable
 		boolean redirect = false;
 		int paginaPedida = 0;
 		int borrar = 0;
 		String listado= null;
+		int reciboChip= 0;
+		int reciboEdad= 0;
+		int reciboPeso= 0;
 		
 
 	
-		try {  // para excepciones. Lo intento
+		try { 
 
 		// RECOGER PARAMETROS
-			// Obtengo string de de pagina actual por paginasview.jsp y lo guardo en string
-			String obtenerPaginaActual = request.getParameter("pagina"); // LA PRIMERA VEZ NO OBTENGO NADA PORQUE TODAVIA NO HA IDO A JSP
 			
-			//recojo el parametro para buscar pagina
-			String buscarPagina = request.getParameter("buscarPagina");
-		
-			// recojo parametro de texto nuevo en nuevaPagina.jsp
-			String nuevoTexto = request.getParameter("texto");
+			
 			
 			// recojo parametro de autor nuevo en nuevaPagina.jsp
-			String nuevoAutor = request.getParameter("autor");
+			String nuevoImagen= request.getParameter("imagen");
+	
+			// recojo parametro de texto nuevo en nuevaPagina.jsp
+			String nuevoRaza = request.getParameter("raza");
 			
-			// recojo parametro para borrar Pagina.jsp
-			String borrado = request.getParameter("borrar");
+			// recojo parametro de autor nuevo en nuevaPagina.jsp
+			String nuevoNombre = request.getParameter("nombre");
+			
+			// recojo parametro de autor nuevo en nuevaPagina.jsp
+			String nuevoEdad= request.getParameter("edad");
+			
+			// recojo parametro de autor nuevo en nuevaPagina.jsp
+			String nuevoPeso= request.getParameter("peso");
+			
+			
+			// recojo parametro de autor nuevo en nuevaPagina.jsp
+			String nuevoChip= request.getParameter("chip");
+		
+	
+		
 			
 			// recojo parametro para listadoPagina.jsp
 			listado = request.getParameter("listado");
@@ -124,111 +100,63 @@ public class HomeController extends HttpServlet {
 			// recojo parametro para usuario
 			String usuarioEmail = request.getParameter("usuarioEmail");
 			
-			
-		// LOGICA AVANCE Y RETROCESO PAGINA
-			// si no parseo dentro de un if me da error
-			if (obtenerPaginaActual != null){	
-				//Parseo de paginaActual
-				paginaActual = Integer.parseInt(obtenerPaginaActual);    // como recibo un string del .jsp lo parseo y lo convierto en entero	
-			
-				// para ultima pagina
-				if (paginaActual > (libro.size()-1)) {  // -1 para que coincidan los numeros a nivel usuario. ( se debe a contar la posicion 0)
-					paginaActual  = (libro.size()-1);
-				}
-				// para primera pagina
-				if (paginaActual < 0) {  // si pongo el tamaño del array se chafa tengo que poner uno menos por lo tanto he creado un elemento mas en el array list.  vacio para solucionar esto 
-					paginaActual  = 0;
-				}
-			}
-			
 	
-			//GENERAR RESPUESTA Obtener AUTOR Y TEXTO
-				// request.setAttribute("datosPagina", libro.get(1)); //CONVERTIR EN DINÁMICO
-				request.setAttribute("datosPagina", libro.get(paginaActual)); // obtengo el texto y el autor de la pagina actual
-	
-			// Generar respuesta para PAGINA ACTUAL y NUMERO TOTAL paginas
-				request.setAttribute("paginaActual", (paginaActual)); // 
-				request.setAttribute("paginasTotal", (libro.size())); // 
+//-------------------------------------LOGICA----------------------------			
 		
-	
-		
-		// LOGICA BUSCAR PAGINA	
-			
-			if (buscarPagina != null){			
-				paginaPedida=Integer.parseInt(buscarPagina); 	//parseo
-				paginaActual= (paginaPedida -1);				// la pagina actual es la que recibo por parametro buscarPagina
-				
-				//Genero respuesta PAGINA ACTUAL Y AUTOR Y TEXTO y DIRECCION
-				request.setAttribute("paginaActual", (paginaActual));  			// pagina Actual
-				request.setAttribute("datosPagina", libro.get(paginaActual)); 	// autor y texto
-																// direccion
-			}
 			
 			
-		// LOGICA CREAR PAGINA	
-		 // to do javax validation
-			
-				if (nuevoTexto!= null && nuevoAutor!=null) {  
-			
-				HomePojo nuevaPagina = new HomePojo (nuevoAutor,nuevoTexto);	
+		// LOGICA CREAR PERRO
+			if (nuevoRaza!= null && nuevoNombre!=null && nuevoChip!=null) {  
+				reciboChip = Integer.parseInt(nuevoChip); 
+				HomePojo nuevoPerro = new HomePojo (nuevoNombre,nuevoRaza,reciboChip);	
 	    
 				// Creo nuevo objeto para añadir al hashmap 
-				libro.add((libro.size() ),nuevaPagina);  // OJO UTILIZAR .PUT EN LUGAR DE .ADD CUANDO USE HASHMAP
-				paginaActual=(libro.size()-1); 
-	   
-				// Genero respuesta para PAGINA ACTUAL, TOTAL , AUTOR Y TEXTO
-				request.setAttribute("paginaActual", (paginaActual)); // 
-				request.setAttribute("paginasTotal", (libro.size()));
-				request.setAttribute("datosPagina", libro.get(paginaActual));
-				redirect = false;
+				perros.add((perros.size() ),nuevoPerro);  // OJO UTILIZAR .PUT EN LUGAR DE .ADD CUANDO USE HASHMAP
+				request.setAttribute("mensajeNewPerro", "Has incluido un nuevo Perro" ); 
 			}
 		
-			
-				
-				
-		// LOGICA BORRAR ELEMENTO
-		
-			if (borrado !=null) {
-			//respuesta
-			borrar=Integer.parseInt (borrado);
-				libro.remove(borrar-1);
-			}	
-		
-		
-			
-			// LOGICA PARA LISTADO	en listado.jsp
-			// to do con el hashmap
+			// LOGICA PARA LISTADO	
 			if (listado !=null) {			
-				request.setAttribute("libro", libro ); 
+				request.setAttribute("perros", perros ); 
 				redirect=true;
-			// PROBLEMA CON EL CAMBIO DE HASHMAP A ARRAYLIST
 			}
 			
+			// LOGICA PARA DETALLE DE PERRO
+			if (nuevoNombre.equals("")==false ) {
 			
+				
+				HomePojo detalle = new HomePojo();
+				
+				detalle.setImagen(nuevoImagen);
+				detalle.setNombre(nuevoNombre);
+				detalle.setRaza(nuevoRaza);
+			
+				
+				request.setAttribute("detalleImagen", detalle.getImagen() ); 
+				request.setAttribute("detalleNombre", detalle.getNombre()); 
+				request.setAttribute("detalleRaza", detalle.getRaza()); 
+			
+		}
+			
+			
+			// LOGICA LOGOUT
 			if (usuarioEmail.equals("")== false) {
 			request.setAttribute("usuarioEmail", usuarioEmail ); 	// respuesta para logout
 			}
-			
-			request.setAttribute("libro", libro ); // respuesta PARA LISTADO	en principal
-				
-			// PROBLEMA CON EL CAMBIO DE HASHMAP A ARRAYLIST
-			
-			
-		
-		}catch (Exception e){ // CAPTURO EXCEPCIONES
 	
-			e.printStackTrace(); // pinto excepciones
+		}catch (Exception e){ 
+			e.printStackTrace(); 
 			
-		}finally{//ENVIAR RESPUESTA		 creo que no hace falta redirect
+		}finally{
 			if (redirect==true) {
 				request.getRequestDispatcher("listado.jsp").forward(request, response);
 				
 				}else {
-					request.setAttribute("libro", libro ); // para datos productos
+					request.setAttribute("libro", perros ); // para datos productos
 					request.getRequestDispatcher("principal.jsp").forward(request, response);		
 				}
 		}
 		
-}//d
-}//fin
+}
+}
 

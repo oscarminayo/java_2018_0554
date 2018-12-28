@@ -1,34 +1,43 @@
-
 <%@ include file="../includes/cabecera.jsp"  %>
-
 <%@ page import= "com.ipartek.formacion.modelo.pojo.HomePojo"  %> 
 
 <!DOCTYPE html>
 <html>
 <head>
-<!-- link a CSS -->	
-<link rel="stylesheet" href="CSS/extra.css">
+
+
+<title>Listado</title>
+
 </head>
 <body>
-	<div >
-	    <h1>Listado de Productos</h1>
-	  <table class="table table-striped">
-		    <thead>
-			    <tr>
-			    <th>Autor</th>
-			    <th>Texto</th>
-			    </tr>
-		    </thead>
-		    <tbody>	
-		      <c:forEach items="${libro}" var="v">
-			    <tr>
-			    <td>${v.autor}</td> <!-- aqui esta el fallo del listado el bucle lo hace bien -->
-			    <td>${v.texto}</td>						
-			    </tr>
-		      </c:forEach>	      
-		    </tbody>
-	  </table>
-  </div>
-
+	<main class="container">
+		<div >
+		    <h1>Listado de Perros</h1>
+		  <table class="table table-striped">
+			    <thead>
+				    <tr>
+				    <th>Imagen</th>  
+				    <th>Nombre</th>
+				    <th>Raza</th>		    
+				    <th>Edad</th>
+				    <th>Peso</th>
+				    <th>nº Chip</th>
+				    </tr>
+			    </thead>
+			    <tbody>	
+			      <c:forEach items="${perros}" var="v">
+				    <tr>			    
+				    <td><a href="home?imagen=${v.imagen}&nombre=${v.nombre}&raza=${v.raza}&edad=${v.edad}&peso=${v.peso}"><img src="${v.imagen}"/></a></td>
+				    <td>${v.nombre}</td> 
+				    <td>${v.raza}</td>	
+				    <td>${v.edad}</td>
+				    <td>${v.peso}</td>
+				    <td>${v.chip}</td>					
+				    </tr>
+			      </c:forEach>	      
+			    </tbody>
+		  </table>
+	  </div>
+	</main>
 </body>
 </html>

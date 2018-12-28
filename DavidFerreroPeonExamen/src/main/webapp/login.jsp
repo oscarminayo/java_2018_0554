@@ -1,4 +1,3 @@
-
 <!-- IDIOMAS -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -8,10 +7,8 @@
 <fmt:setBundle basename="i18nmessages" /> <!-- CARGAR FICHERO PROPERTIES -->
 
 <!doctype html>
-<html lang="${idioma}"> <!--  INDICAR IDIOMA -->
+<html lang="${idioma}"> 
 <!-- FIN IDIOMAS -->
-
-<title>LOGIN</title>
 
 <head>
 <meta charset="utf-8">
@@ -21,22 +18,15 @@
 <meta name="author" content="">
 <link rel="icon" href="../../../../favicon.ico">
 
-<title>Signin Template for Bootstrap</title>
+<title>Login</title>
 
-<!-- Bootstrap core CSS -->
 <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom styles for this template -->
 <link href="signin.css" rel="stylesheet">
-
-<link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.css"
-	rel="stylesheet">
-	
-<!-- link a CSS -->	
+<link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.css" rel="stylesheet">
 <link rel="stylesheet" href="CSS/login.css">
-
-
 </head>
+
+
 <body class="text-center"> 	
 
 
@@ -53,25 +43,21 @@
 	
 		<p>
 			<label for="email"><strong>*Email</strong></label>
-			<input type="email" name="email" id="email" class="form-control"  value="dfp@ipartek.com" />
+			<input type="text" name="email" id="email" class="form-control"  value="scobby" />
 		</p>
 		<p>
 			<label for="password"><strong>*Password</strong></label>
-			<input type="password" name="password" id="password" class="form-control"  value="Pa$$w0rd" />
+			<input type="password" name="password" id="password" class="form-control"  value="galletas" />
 		</p>
 		<p>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 		</p>
-		
-		
-		
-	 <c:if test="${not empty msg}">	  
-		 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-		  ${msg}			 
-		 </div>	 	
-	  </c:if>   	
 	
-	  
+		<c:if test="${not empty msg}">	  
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			  ${msg}			 
+			</div>	 	
+	 	</c:if>   		  
 	</fieldset>
 </form>
 

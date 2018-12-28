@@ -1,4 +1,4 @@
-<%@page import= "com.ipartek.formacion.modelo.pojo.HomePojo" %> <!-- page para importar clases etc -->
+<%@page import= "com.ipartek.formacion.modelo.pojo.PaginaPojo2" %> <!-- page para importar clases etc -->
 
 <html>
 <head>
