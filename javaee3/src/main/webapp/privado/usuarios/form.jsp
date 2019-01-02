@@ -29,7 +29,7 @@
 		</form>
 		
 		<c:if test="${usuario.id > 0}">
-			<a href="#TODO#" class="btn btn-danger btn-block mt-4">ELIMINAR</a>
+			<a href="privado/usuarios?op=4&id=${usuario.id}" class="btn btn-danger btn-block mt-4">ELIMINAR</a>
 		</c:if>
 
 	</main>				
