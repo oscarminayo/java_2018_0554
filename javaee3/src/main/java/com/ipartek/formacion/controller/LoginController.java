@@ -1,6 +1,5 @@
 package com.ipartek.formacion.controller;
 
-
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -21,8 +20,6 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
-
-
 import com.ipartek.formacion.modelo.ConnectionManager;
 import com.ipartek.formacion.modelo.dao.UsuarioDAO;
 import com.ipartek.formacion.modelo.pojo.Usuario;
@@ -41,7 +38,7 @@ public class LoginController extends HttpServlet {
 	private Validator validator;
 	
 	public static final String VIEW_LOGIN = "login.jsp";
-	public static final String CONTROLLER_VIDEOS = "privado/videos";
+	//public static final String CONTROLLER_VIDEOS = "privado/videos";
 	
        
     @Override
@@ -125,7 +122,7 @@ public class LoginController extends HttpServlet {
 		}finally {
 			
 			if(redirect) {				
-				response.sendRedirect(CONTROLLER_VIDEOS);
+				response.sendRedirect( request.getContextPath() + "/privado/usuarios");
 			}else {
 				request.getRequestDispatcher(view).forward(request, response);
 			}

@@ -5,14 +5,6 @@
   
 
     <main role="main" class="container">
-      
-      
-      <h1>
-     conectado ${usuario}
-      </h1>
-      
-      
-      
       <div class="jumbotron">
        
 			<ol>
