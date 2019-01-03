@@ -20,32 +20,26 @@ public class UsuarioDAO {
 	}
 
 	public synchronized static UsuarioDAO getInstance() {
-
 		if (INSTANCE == null) {
 			INSTANCE = new UsuarioDAO();
 		}
 		return INSTANCE;
 	}
 
-	/**
-	 * comprobar si existe el usuario en la bbdd
-	 * 
-	 * @param email String
-	 * @param pass  String contrase�a
-	 * @return usuario con datos si existe, null si no existe
-	 */
+	
 	public Usuario login(String email, String pass) {
+		Usuario usuario = null; // creo objeto 
+		String sql = "SELECT id, email, password FROM usuario WHERE email = ? AND password = ?;"; // sentencia para mysql
 
-		Usuario usuario = null;
-		String sql = "SELECT id, email, password FROM usuario WHERE email = ? AND password = ?;";
-
-		try (Connection conn = ConnectionManager.getConnection(); PreparedStatement pst = conn.prepareStatement(sql);) {
-			pst.setString(1, email);
-			pst.setString(2, pass);
-			try (ResultSet rs = pst.executeQuery()) {
+		try (Connection conn = ConnectionManager.getConnection(); PreparedStatement pst = conn.prepareStatement(sql);) { // intenta conexion
+			
+			pst.setString(1, email); // parametro 1 me lo da u.getEmail
+			pst.setString(2, pass);   // parametro 2
+			
+			try (ResultSet rs = pst.executeQuery()) { // guardo parametros en el resulset
 				while (rs.next()) { // hemos encontrado usuario
 					usuario = new Usuario();
-					usuario.setId(rs.getLong("id"));
+					usuario.setId(rs.getLong("id")); // modifico la id del usuario obteniendo id de resulset
 					usuario.setEmail(rs.getString("email"));
 					usuario.setPassword(rs.getString("password"));
 				}
@@ -125,13 +119,37 @@ public class UsuarioDAO {
 
 	}
 	
-	public boolean eliminar (Usuario u) throws SQLException {
+	
+	public boolean delete( long id ) throws SQLException {
 
 		boolean resul = false;
-		String sql = "DELETE FROM `usuario` WHERE  `id`=?";
+		String sql = "DELETE FROM `usuario` WHERE id = ?;";
+		try (Connection conn = ConnectionManager.getConnection(); 
+			 PreparedStatement pst = conn.prepareStatement(sql);) {
+
+			pst.setLong(1, id);
+			
+			int affectedRows = pst.executeUpdate();
+			if (affectedRows == 1) {
+				resul = true;
+			}
+
+		}
+		return resul;
+
+	}
+	
+	public boolean update (Usuario u) throws SQLException {
+
+		boolean resul = false;
+		String sql = "UPDATE `usuario` SET `email`='auraga@ipartek.com', `password`='222' WHERE `id`=1;";
 		try (Connection conn = ConnectionManager.getConnection(); PreparedStatement pst = conn.prepareStatement(sql);) {
 
-			pst.setLong(1, u.getId());
+			pst.setString(1, u.getEmail());  // parametro 1 me lo da u.getEmail
+			pst.setString(2, u.getPassword());
+			pst.setLong(3, u.getId());
+			
+			
 			
 			int affectedRows = pst.executeUpdate();
 			if (affectedRows == 1) {

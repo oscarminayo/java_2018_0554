@@ -4,6 +4,7 @@ package com.ipartek.formacion.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Set;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,6 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
@@ -37,6 +42,9 @@ public class UsuarioController extends HttpServlet {
 	
 	private String alerta = "";
 	
+	private ValidatorFactory factory;
+	private Validator validator;
+	
 	//parametros	
 	private String op;
 	private String id;
@@ -49,7 +57,12 @@ public class UsuarioController extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {    
     	super.init(config);
-    	dao = UsuarioDAO.getInstance();
+    	dao = UsuarioDAO.getInstance();  // instancio dao en init
+    	
+    	
+    	factory  = Validation.buildDefaultValidatorFactory();
+    	validator  = factory.getValidator();
+    	
     }
     
    	
@@ -106,42 +119,59 @@ public class UsuarioController extends HttpServlet {
 	}
 
 
-	private void eliminar(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+	private void eliminar(HttpServletRequest request) throws SQLException {
+	
+		int identificador = Integer.parseInt(id);		
 		
+		if ( dao.delete(identificador) ) {
+			alerta = "Registro eliminado con exito";
+		}else {
+			alerta = "Registro NO eliminado, sentimos las molestias";
+		}
+				
+		listar(request);		
 	}
 
 
 	private void guardar(HttpServletRequest request) throws SQLException {
 
-		Usuario u = new Usuario();
-		int identificador = Integer.parseInt(id);
-		// u.setId((long)identificador);
-		u.setEmail(email);
-		u.setPassword(password);
+		
+		// Crear usuario mediante parametros del formulario
+		Usuario u = new Usuario();  // usuario con parametros
+		
+		int identificador = Integer.parseInt(id);	// parseo id
+		u.setId ((long)identificador);  // modifico parametros
+		u.setEmail (email);
+		u.setPassword (password);
 		
 		//TODO validar POJO
-		
+		Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
 		//si validacion no correcta
-		   
-		  // alerta al usuario
+	
+		try {
+		if ( violations.size()>0) {
 		
-		  // volver al formulario, cuidado que no se pierdan los valores en el form
-		
-		
-		// Si validacion correcta
-			if ( identificador > 0 ) {
-				alerta = "UPDATE Usuario ";
-				// TODO dao.update	
-				
+			alerta= "Los campos introducidos no son correctos , por favor intentalo de nuevo";
+			vista = VIEW_FORM;	
+			request.setAttribute("usuario", u);
+		}else {
+			if (identificador>0) {
+				dao.update(u);
 			}else {
-				alerta = "Crear un nuevo Usuario";
 				dao.insert(u);
+				
 			}
+			alerta= "Registro guardado cn exito";
+			listar (request);	
+		}
 		
-			listar(request);
-		
-		
+		}catch (SQLException e) {
+			alerta = "Lo sentimos pero el Email ya existe";
+			vista = VIEW_FORM;
+			request.setAttribute("usuario", u);
+			
+		}
+	
 	}
 
 

@@ -17,4 +17,4 @@
     </main>
 
   
-<%@ include file="../includes/footer.jsp"  %>  
+<%@ include file="../includes/footer.jsp"  %>  e="../includes/footer.jsp"  %>  
