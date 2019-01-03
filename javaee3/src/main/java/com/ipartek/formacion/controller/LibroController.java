@@ -1,5 +1,4 @@
 package com.ipartek.formacion.controller;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -15,6 +14,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import com.ipartek.formacion.modelo.pojo.Alerta;
 import com.ipartek.formacion.modelo.pojo.Pagina;
 
 /**
@@ -70,7 +70,7 @@ public class LibroController extends HttpServlet {
 				}
 				
 		}catch (Exception e) {
-			request.setAttribute("alerta", "Pagina NO disponible" );
+			request.setAttribute("alerta", new Alerta(Alerta.TIPO_WARNING ,"Pagina NO disponible") );
 			paginaMostrar = libro.get(0);
 			paginaActual = 0;
 			
@@ -105,13 +105,13 @@ public class LibroController extends HttpServlet {
 		    	
 		    }else {
 		    	
-		    	request.setAttribute("alerta", "Por favor rellena el autor y texto");
+		    	request.setAttribute("alerta",new Alerta(Alerta.TIPO_WARNING , "Por favor rellena el autor y texto"));
 		    }
 			
 			paginaActual = libro.size();
 				
 		}catch (Exception e) {
-			request.setAttribute("alerta", "Error Escribiendo pagina" );
+			request.setAttribute("alerta", new Alerta(Alerta.TIPO_DANGER ,"Error Escribiendo pagina" ));
 			
 		}finally {
 			request.setAttribute("pagina", p );

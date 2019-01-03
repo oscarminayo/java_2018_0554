@@ -20,6 +20,7 @@ import javax.validation.ValidatorFactory;
 import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.modelo.dao.UsuarioDAO;
+import com.ipartek.formacion.modelo.pojo.Alerta;
 import com.ipartek.formacion.modelo.pojo.Usuario;
 
 /**
@@ -31,6 +32,9 @@ public class UsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger LOG = Logger.getLogger(UsuarioController.class);
 	
+	private ValidatorFactory factory;
+	private Validator validator;
+	
 	private static final String VIEW_INDEX = "usuarios/index.jsp";
 	private static final String VIEW_FORM = "usuarios/form.jsp";
 	private String vista;
@@ -40,10 +44,7 @@ public class UsuarioController extends HttpServlet {
 	public static final String OP_GUARDAR = "3"; // id == -1 insert , id > 0 update
 	public static final String OP_ELIMINAR = "4";
 	
-	private String alerta = "";
-	
-	private ValidatorFactory factory;
-	private Validator validator;
+	private Alerta alerta;
 	
 	//parametros	
 	private String op;
@@ -57,12 +58,9 @@ public class UsuarioController extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {    
     	super.init(config);
-    	dao = UsuarioDAO.getInstance();  // instancio dao en init
-    	
-    	
+    	dao = UsuarioDAO.getInstance();
     	factory  = Validation.buildDefaultValidatorFactory();
     	validator  = factory.getValidator();
-    	
     }
     
    	
@@ -77,7 +75,7 @@ public class UsuarioController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		vista = VIEW_INDEX;
-		alerta = "";
+		alerta = null;
 		try {
 			// recoger parametros
 			getParametros(request);
@@ -100,7 +98,7 @@ public class UsuarioController extends HttpServlet {
 			
 		}catch (Exception e) {
 			LOG.error(e);		
-			alerta = "Error inexperado, sentimos las molestias";
+			alerta = new Alerta( Alerta.TIPO_DANGER, "Error inexesperado sentimos las molestias.");
 			
 		}finally {
 			// mensaje para el usuario
@@ -124,54 +122,53 @@ public class UsuarioController extends HttpServlet {
 		int identificador = Integer.parseInt(id);		
 		
 		if ( dao.delete(identificador) ) {
-			alerta = "Registro eliminado con exito";
+			alerta = new Alerta( Alerta.TIPO_SUCCESS, "Registro eliminado con exito");
 		}else {
-			alerta = "Registro NO eliminado, sentimos las molestias";
+			alerta = new Alerta( Alerta.TIPO_WARNING, "Registro NO eliminado, sentimos las molestias");
 		}
 				
 		listar(request);		
 	}
 
 
-	private void guardar(HttpServletRequest request) throws SQLException {
+	private void guardar(HttpServletRequest request) {
 
+		//crear usuario mediante parametros del formulario
+		Usuario u = new Usuario();
+		int identificador = Integer.parseInt(id);	
+		u.setId( (long)identificador);
+		u.setEmail(email);
+		u.setPassword(password);
 		
-		// Crear usuario mediante parametros del formulario
-		Usuario u = new Usuario();  // usuario con parametros
-		
-		int identificador = Integer.parseInt(id);	// parseo id
-		u.setId ((long)identificador);  // modifico parametros
-		u.setEmail (email);
-		u.setPassword (password);
-		
-		//TODO validar POJO
+		//validar usuario		
 		Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
-		//si validacion no correcta
-	
-		try {
-		if ( violations.size()>0) {
 		
-			alerta= "Los campos introducidos no son correctos , por favor intentalo de nuevo";
-			vista = VIEW_FORM;	
-			request.setAttribute("usuario", u);
-		}else {
-			if (identificador>0) {
-				dao.update(u);
-			}else {
-				dao.insert(u);
+		
+		if ( violations.size() > 0 ) {              // validacion NO correcta
+		 
+		  alerta = new Alerta( Alerta.TIPO_WARNING, "Los campos introduciodos no son correctos, por favor intentalo de nuevo");		 
+		  vista = VIEW_FORM; 
+		  // volver al formulario, cuidado que no se pierdan los valores en el form
+		  request.setAttribute("usuario", u);	
+		  
+		}else {									  //  validacion correcta
+		
+			try {
+				if ( identificador > 0 ) {
+					dao.update(u);				
+				}else {				
+					dao.insert(u);
+				}
+				alerta = new Alerta( Alerta.TIPO_SUCCESS, "Registro guardado con exito");
+				listar(request);
 				
-			}
-			alerta= "Registro guardado cn exito";
-			listar (request);	
-		}
+			}catch ( SQLException e) {
+				alerta = new Alerta( Alerta.TIPO_WARNING, "Lo sentimos pero el EMAIL ya existe");
+				vista = VIEW_FORM;
+				request.setAttribute("usuario", u);
+			}	
+		}	
 		
-		}catch (SQLException e) {
-			alerta = "Lo sentimos pero el Email ya existe";
-			vista = VIEW_FORM;
-			request.setAttribute("usuario", u);
-			
-		}
-	
 	}
 
 
@@ -183,10 +180,7 @@ public class UsuarioController extends HttpServlet {
 		int identificador = Integer.parseInt(id);
 		if ( identificador > 0 ) {			
 			u = dao.getById(identificador);
-		}else {
-			alerta = "Crear un nuevo Usuario";
 		}
-		
 		request.setAttribute("usuario", u);		
 	}
 

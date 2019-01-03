@@ -28,7 +28,7 @@ public class ConnectionManager {
 			//comprobar que exista .jar para mysql
 			Class.forName(prop.getProperty("ddbb.driver")).newInstance();
 			LOG.debug("Existe driver mysql");
-	
+			
 			//crear conexion
 			conn = DriverManager.getConnection(
 								prop.getProperty("ddbb.url"), 
