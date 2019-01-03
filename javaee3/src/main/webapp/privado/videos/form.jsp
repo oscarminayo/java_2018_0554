@@ -15,12 +15,14 @@
 			
 			<div class="form-group">
 			    <label for="nombre">Nombre</label>
-			    <input type="nombre" name="nombre" value="${video.nombre}" class="form-control" placeholder="tucorreo@electronico.com">			    
+			    <input type="text" name="nombre" value="${video.nombre}" class="form-control" placeholder="minimo 5 letras" minlength="5" maxlength="150">
+			    <small id="nombre" class="form-text text-muted">minimo 5 letras, maximo 150</small>				    
 			</div>
 			
 			<div class="form-group">
-			    <label for="codigo">Codigo</label>
-			    <input type="codigo" name="codigo" value="${video.codigo}" class="form-control" placeholder="minimo 5 maximo 50 caracteres">			    
+			    <label for="codigo">Código</label>
+			    <input type="text" name="codigo" value="${video.codigo}" class="form-control" placeholder="11 caracteres">
+			    <small id="codigo" class="form-text text-muted">11 caracteres</small>			    
 			</div>
 			
 			<input type="hidden" name="op" value="3">

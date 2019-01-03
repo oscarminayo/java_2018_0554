@@ -30,20 +30,26 @@ import com.ipartek.formacion.modelo.pojo.Usuario;
 public class UsuarioController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private final static Logger LOG = Logger.getLogger(UsuarioController.class);
 	
+	// capturar errores. crea un archivo.log donde se ve todo
+	private final static Logger LOG = Logger.getLogger(UsuarioController.class); 
+	
+	// variables para validator
 	private ValidatorFactory factory;
 	private Validator validator;
 	
+	// variables para direciones
 	private static final String VIEW_INDEX = "usuarios/index.jsp";
 	private static final String VIEW_FORM = "usuarios/form.jsp";
 	private String vista;
 	
+	// variables para switch operacion
 	public static final String OP_LISTAR = "1";
 	public static final String OP_IR_FORMULARIO = "2";
 	public static final String OP_GUARDAR = "3"; // id == -1 insert , id > 0 update
 	public static final String OP_ELIMINAR = "4";
 	
+	// variable para mostrar alerta
 	private Alerta alerta;
 	
 	//parametros	
@@ -52,15 +58,19 @@ public class UsuarioController extends HttpServlet {
 	private String email;
 	private String password;
 	
+	
+	// Objeto UsuarioDao
     private static UsuarioDAO dao = null;   
 	
-	
+	// metodo init donde se meten dao, colecciones como arraylist y validator
     @Override
     public void init(ServletConfig config) throws ServletException {    
     	super.init(config);
-    	dao = UsuarioDAO.getInstance();
-    	factory  = Validation.buildDefaultValidatorFactory();
-    	validator  = factory.getValidator();
+    	
+    	dao = UsuarioDAO.getInstance(); // get Instancepara singleton
+    	
+    	factory  = Validation.buildDefaultValidatorFactory(); // para validator
+    	validator  = factory.getValidator(); // para validator
     }
     
    	

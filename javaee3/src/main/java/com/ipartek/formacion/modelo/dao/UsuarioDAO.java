@@ -145,7 +145,7 @@ public class UsuarioDAO {
 		String sql = "UPDATE `usuario` SET `email`='auraga@ipartek.com', `password`='222' WHERE `id`=1;";
 		try (Connection conn = ConnectionManager.getConnection(); PreparedStatement pst = conn.prepareStatement(sql);) {
 
-			pst.setString(1, u.getEmail());  // parametro 1 me lo da u.getEmail
+			pst.setString(1, u.getEmail());  // parametro 1 me lo da u.getEmail 1 por cada interrogante 
 			pst.setString(2, u.getPassword());
 			pst.setLong(3, u.getId());
 			

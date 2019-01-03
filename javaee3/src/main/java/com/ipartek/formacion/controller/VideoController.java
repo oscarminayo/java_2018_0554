@@ -28,10 +28,10 @@ import com.ipartek.formacion.modelo.pojo.Video;
  * Servlet implementation class videoController
  */
 @WebServlet("/privado/videos")
-public class VideosController extends HttpServlet {
+public class VideoController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private final static Logger LOG = Logger.getLogger(VideosController.class);
+	private final static Logger LOG = Logger.getLogger(VideoController.class);
 	
 	private ValidatorFactory factory;
 	private Validator validator;
@@ -135,14 +135,14 @@ public class VideosController extends HttpServlet {
 	private void guardar(HttpServletRequest request) {
 
 		//crear video mediante parametros del formulario
-		Video u = new Video();
+		Video v = new Video();
 		int identificador = Integer.parseInt(id);	
-		u.setId( (long)identificador);
-		u.setNombre(nombre);
-		u.setCodigo(codigo);
+		v.setId( (long)identificador);
+		v.setNombre(nombre);
+		v.setCodigo(codigo);
 		
 		//validar Video		
-		Set<ConstraintViolation<Video>> violations = validator.validate(u);
+		Set<ConstraintViolation<Video>> violations = validator.validate(v);
 		
 		
 		if ( violations.size() > 0 ) {              // validacion NO correcta
@@ -150,15 +150,15 @@ public class VideosController extends HttpServlet {
 		  alerta = new Alerta( Alerta.TIPO_WARNING, "Los campos introduciodos no son correctos, por favor intentalo de nuevo");		 
 		  vista = VIEW_FORM; 
 		  // volver al formulario, cuidado que no se pierdan los valores en el form
-		  request.setAttribute("video", u);	
+		  request.setAttribute("video", v);	
 		  
 		}else {									  //  validacion correcta
 		
 			try {
 				if ( identificador > 0 ) {
-					dao.update(u);				
+					dao.update(v);				
 				}else {				
-					dao.insert(u);
+					dao.insert(v);
 				}
 				alerta = new Alerta( Alerta.TIPO_SUCCESS, "Registro guardado con exito");
 				listar(request);
@@ -166,7 +166,7 @@ public class VideosController extends HttpServlet {
 			}catch ( SQLException e) {
 				alerta = new Alerta( Alerta.TIPO_WARNING, "Lo sentimos pero el nombre ya existe");
 				vista = VIEW_FORM;
-				request.setAttribute("video", u);
+				request.setAttribute("video", v);
 			}	
 		}	
 		
@@ -176,13 +176,13 @@ public class VideosController extends HttpServlet {
 	private void irFormulario(HttpServletRequest request) {
 		
 		vista = VIEW_FORM; 
-		Video u = new Video();
+		Video v = new Video();
 		
 		int identificador = Integer.parseInt(id);
 		if ( identificador > 0 ) {			
-			u = dao.getById(identificador);
+			v = dao.getById(identificador);
 		}
-		request.setAttribute("video", u);		
+		request.setAttribute("video", v);		
 	}
 
 	

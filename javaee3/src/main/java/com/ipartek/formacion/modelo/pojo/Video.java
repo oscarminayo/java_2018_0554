@@ -12,8 +12,8 @@ public class Video {
 	
 	private long id;
 	
-	@NotNull
-	@Size(min=5, max=150)
+	@NotNull  // VALIDATE
+	@Size(min=5, max=150) // VALIDATE
 	private String nombre;
 	
 	@NotNull
@@ -24,7 +24,7 @@ public class Video {
 
 	public Video() {
 		super();
-		this.id = -1;
+		this.id = -1;  // el atributo de esta variable (-1) es lo que sale en el formulario
 		this.nombre = "";
 		this.codigo = "";
 	}
