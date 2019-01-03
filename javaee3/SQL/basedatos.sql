@@ -29,8 +29,7 @@ CREATE TABLE `usuario` (
   `email` varchar(150) NOT NULL,
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  UNIQUE KEY `email_UNIQUE` (`email`) /*!80000 INVISIBLE */
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,6 +41,32 @@ LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` VALUES (1,'david@ipartek.com','123456'),(2,'dfp@ipartek.com','123456'),(4,'juan@ipartek.com','123456'),(6,'maria@gmail.com','123456'),(7,'TammyMChannel@trashymail.com','12345678');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video`
+--
+
+DROP TABLE IF EXISTS `video`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  `codigo` varchar(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video`
+--
+
+LOCK TABLES `video` WRITE;
+/*!40000 ALTER TABLE `video` DISABLE KEYS */;
+INSERT INTO `video` VALUES (1,'tamtam2','6HSh1nMHCe0'),(2,'oficial','wPf473Kjt9o'),(3,'tamtam1','5wgHODuCr24'),(4,'vidaModerna','O-hLqiebtJ0');
+/*!40000 ALTER TABLE `video` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -57,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-03 11:57:15
+-- Dump completed on 2019-01-03 13:39:16
