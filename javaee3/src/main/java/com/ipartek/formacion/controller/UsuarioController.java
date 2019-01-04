@@ -162,7 +162,7 @@ public class UsuarioController extends HttpServlet {
 		  request.setAttribute("usuario", u);	
 		  
 		}else {									  //  validacion correcta
-		
+			
 			try {
 				if ( identificador > 0 ) {
 					dao.update(u);				

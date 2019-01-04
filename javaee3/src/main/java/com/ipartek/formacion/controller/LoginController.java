@@ -33,43 +33,52 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger LOG = Logger.getLogger(LoginController.class);
 	
+	// varible objeto dao
 	private UsuarioDAO dao;
-	private ValidatorFactory factory;
-	private Validator validator;
+	
+	//varibles para validator
+	private ValidatorFactory factory; 	//VALIDATOR
+	private Validator validator;		//VALIDATOR
 	
 	public static final String VIEW_LOGIN = "login.jsp";
 	//public static final String CONTROLLER_VIDEOS = "privado/videos";
 	
        
-    @Override
+    @Override // metodo init para colecciones, validator y singleton
     public void init(ServletConfig config) throws ServletException {    
     	super.init(config);
-    	dao = UsuarioDAO.getInstance();
-    	//Crear Factoria y Validador
-    	factory  = Validation.buildDefaultValidatorFactory();
-    	validator  = factory.getValidator();
+    	
+    	dao = UsuarioDAO.getInstance(); 						// get instance para singleton
+    	
+    	//Crear Factoria y Validador EN METODO INIT
+    	factory  = Validation.buildDefaultValidatorFactory(); 	//VALIDATOR
+    	validator  = factory.getValidator();					// VALIDATOR
     }
 
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		request.getRequestDispatcher(VIEW_LOGIN).forward(request, response);
+		request.getRequestDispatcher(VIEW_LOGIN).forward(request, response); // LO QUE VENGA POR GET VA A LOGIN
 	}
     
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		// Recojo PARAMETROS
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
 		String idioma = request.getParameter("idioma");
+		
+		// Variables para direcciones y redirect
 		String view = VIEW_LOGIN;
 		boolean redirect = false;
 		
 		try {
 			
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession();  // CONEXION BDD
 		
-			//idioma  TODO ver porque no funciona con Euskera
+			//idioma  
 			Locale locale = new Locale("eu_ES");
 			ResourceBundle messages = ResourceBundle.getBundle("i18nmessages", locale );
 			LOG.debug("idioma=" + idioma);		
@@ -81,14 +90,14 @@ public class LoginController extends HttpServlet {
 			
 			
 			// validar
-			Usuario usuario = new Usuario();
+			Usuario usuario = new Usuario(); // CREO objeto y le doy como atributos los parámetros recogidos mediante setter
 			usuario.setEmail(email);
 			usuario.setPassword(pass);
 			
-			Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
+			Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);  //VALIDATOR
 			
 			
-			if ( violations.size() > 0) {			// validacion NO PASA
+			if ( violations.size() > 0) {			// si  NO PASA la validacion
 				
 				 String errores = "<ul>"; 
 				 for (ConstraintViolation<Usuario> violation : violations) {					 	
@@ -97,9 +106,9 @@ public class LoginController extends HttpServlet {
 				 errores += "</ul>";				 
 				 request.setAttribute("mensaje", errores);				
 				
-			}else {                                // validacion OK
+			}else {                                // si PASA validacion 
 			
-				usuario = dao.login(email, pass);
+				usuario = dao.login(email, pass); // EL OBJETO USUARIO QUE HE CREADO COMPRUEBA SUS ATRIBUTOS EN LA BASE DE DATOS MEDIANTE LOGIN DEL DAO
 				
 				if ( usuario == null ) {
 					

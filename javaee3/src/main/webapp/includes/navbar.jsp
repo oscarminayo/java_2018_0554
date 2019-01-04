@@ -12,8 +12,11 @@
             <a class="nav-link" href="privado/libro"><fmt:message key="navbar.libro"/></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="privado/usuarios">Usuarios</a>
+            <a class="nav-link" href="privado/usuarios"><fmt:message key="navbar.usuarios"/></a>
           </li> 
+           <li class="nav-item active">
+            <a class="nav-link" href="privado/perros"><fmt:message key="navbar.perros"/></a>
+          </li>
         </ul>
         <ul class="navbar-nav float-right">
         	<li><span class="badge badge-light mr-3">${usuario.email}</span></li>

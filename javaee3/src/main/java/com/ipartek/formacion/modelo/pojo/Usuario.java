@@ -21,6 +21,8 @@ public class Usuario {
 	@Size(min=5, max=50)
 	private String password;
 
+	
+	// para objetos
 	public Usuario() {
 		super();
 		this.id = (long) -1;
@@ -28,6 +30,8 @@ public class Usuario {
 		this.password = "";
 	}
 
+	
+	// para arraylist o colecciones entre otros
 	public Usuario(Long id, String email, String password) {
 		this();
 		setId(id);
