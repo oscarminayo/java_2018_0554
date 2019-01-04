@@ -64,7 +64,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'david@ipartek.com','123456'),(2,'dfp@ipartek.com','123456'),(4,'juan@ipartek.com','123456'),(6,'maria@gmail.com','123456'),(7,'TammyMChannel@trashymail.com','12345678');
+INSERT INTO `usuario` VALUES (1,'david@ipartek.com','123456'),(2,'dfp@ipartek.com','123456'),(3,'juan@ipartek.com','123456'),(4,'maria@gmail.com','123456'),(5,'TammyMChannel@trashymail.com','123456');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `video` (
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
   KEY `FK_USUARIO_idx` (`id_usuario`),
   CONSTRAINT `FK_USUARIO` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `video` (
 
 LOCK TABLES `video` WRITE;
 /*!40000 ALTER TABLE `video` DISABLE KEYS */;
-INSERT INTO `video` VALUES (1,'tamtam2','6HSh1nMHCe0',1),(2,'oficial','wPf473Kjt9o',1),(3,'tamtam1','5wgHODuCr24',1),(4,'vidaModerna','O-hLqiebtJ0',1);
+INSERT INTO `video` VALUES (1,'tamtam2','6HSh1nMHCe0',1),(2,'oficial','wPf473Kjt9o',2),(3,'tamtam1','5wgHODuCr24',3),(4,'Bruce Dickinson - Tears of The Dragon','vXClBjNxiOA',2),(5,'FISICA ACUSTICA','M6fDCg0zQTo',3),(7,'admin','Ckom3gf57Yw',4);
 /*!40000 ALTER TABLE `video` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,4 +110,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04 10:06:22
+-- Dump completed on 2019-01-04 14:24:04
