@@ -19,6 +19,8 @@ public class Video {
 	@NotNull
 	@Size(min=11, max=11)
 	private String codigo;
+	
+	private Usuario usuario; // para base de datos relacionadas 
 
 	// Constructores
 
@@ -27,6 +29,12 @@ public class Video {
 		this.id = -1;  // el atributo de esta variable (-1) es lo que sale en el formulario
 		this.nombre = "";
 		this.codigo = "";
+		this.usuario= new Usuario();  // para tener un usuario en video
+	}
+	
+	// metodo getter para obtener usuario
+	public Usuario getUsuario() {
+		return usuario;
 	}
 	
 	public Video(long id, String nombre, String codigo ) {

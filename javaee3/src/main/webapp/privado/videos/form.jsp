@@ -58,8 +58,8 @@
 			</div>
 		
 		</c:if>
+		<td><iframe width="350" height="250" src="https://www.youtube.com/embed/${video.codigo}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
 		
-
 	</main>				
 
 

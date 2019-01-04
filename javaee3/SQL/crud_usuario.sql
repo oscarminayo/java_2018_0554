@@ -21,3 +21,18 @@ DELETE FROM `usuario` WHERE  `id`=3;
 
 -- login
 SELECT id,email, password FROM usuario WHERE email='auraga@ipartek.com' AND `password`='222';
+
+
+-- Listado de videos con detalle usuario--
+SELECT
+	v.id as 'id_video',
+	v.id as 'id_usuario',
+	nombre,
+	codigo,
+	email,
+	password
+-- FROM video as v INNER JOIN usuario as u  ON u.id=v.id_usuario;  -- UNA JOIN TRADICIONAL PERO ANDER LO HACE COMO LO SIGUIENTE CON EL WHERE
+FROM video as v, usuario as u  
+WHERE u.id = v.id_usuario
+ORDER BY v.id DESC LIMIT 1000;
+
