@@ -18,14 +18,12 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.modelo.dao.UsuarioDAO;
 import com.ipartek.formacion.modelo.dao.VideoDAO;
 import com.ipartek.formacion.modelo.pojo.Alerta;
-import com.ipartek.formacion.modelo.pojo.Usuario;
 import com.ipartek.formacion.modelo.pojo.Video;
 
 /**
- * Servlet implementation class videoController
+ * Servlet implementation class UsuarioController
  */
 @WebServlet("/privado/videos")
 public class VideoController extends HttpServlet {
@@ -102,7 +100,7 @@ public class VideoController extends HttpServlet {
 			alerta = new Alerta( Alerta.TIPO_DANGER, "Error inexesperado sentimos las molestias.");
 			
 		}finally {
-			// mensaje para el video
+			// mensaje para el usuario
 			request.setAttribute("alerta", alerta);
 			// ir a una vista
 			request.getRequestDispatcher(vista).forward(request, response);
@@ -111,8 +109,7 @@ public class VideoController extends HttpServlet {
 
 
 	private void listar(HttpServletRequest request) {
-
-		// alerta = "Lista de videoss";
+		
 		request.setAttribute("videos", dao.getAll());		
 		
 	}
@@ -138,10 +135,10 @@ public class VideoController extends HttpServlet {
 		Video v = new Video();
 		int identificador = Integer.parseInt(id);	
 		v.setId( (long)identificador);
-		v.setNombre(nombre);
 		v.setCodigo(codigo);
+		v.setNombre(nombre);
 		
-		//validar Video		
+		//validar usuario		
 		Set<ConstraintViolation<Video>> violations = validator.validate(v);
 		
 		
@@ -164,7 +161,7 @@ public class VideoController extends HttpServlet {
 				listar(request);
 				
 			}catch ( SQLException e) {
-				alerta = new Alerta( Alerta.TIPO_WARNING, "Lo sentimos pero el nombre ya existe");
+				alerta = new Alerta( Alerta.TIPO_WARNING, "Lo sentimos pero el EMAIL ya existe");
 				vista = VIEW_FORM;
 				request.setAttribute("video", v);
 			}	
@@ -182,7 +179,10 @@ public class VideoController extends HttpServlet {
 		if ( identificador > 0 ) {			
 			v = dao.getById(identificador);
 		}
-		request.setAttribute("video", v);		
+		request.setAttribute("video", v);
+		
+		//TODO enviar atributo usuarios
+		
 	}
 
 	
@@ -198,7 +198,7 @@ public class VideoController extends HttpServlet {
 		nombre = request.getParameter("nombre");
 		codigo = request.getParameter("codigo");
 		
-		LOG.debug( String.format("parametros: op=%s id=%s nombre=%s codigo=%s", op, id, nombre, codigo ));
+		//TODO nuevo parametro para id_usuario
 		
 	}
 	

@@ -18,6 +18,31 @@ USE `javaee`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `perro`
+--
+
+DROP TABLE IF EXISTS `perro`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `perro` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(150) NOT NULL,
+  `raza` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `perro`
+--
+
+LOCK TABLES `perro` WRITE;
+/*!40000 ALTER TABLE `perro` DISABLE KEYS */;
+INSERT INTO `perro` VALUES (1,'negu','aguas'),(2,'pluto','pastor belga'),(3,'pulgas','milrarazas');
+/*!40000 ALTER TABLE `perro` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `usuario`
 --
 
@@ -29,7 +54,7 @@ CREATE TABLE `usuario` (
   `email` varchar(150) NOT NULL,
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`) /*!80000 INVISIBLE */
+  UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,8 +79,11 @@ CREATE TABLE `video` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `codigo` varchar(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`),
+  KEY `FK_USUARIO_idx` (`id_usuario`),
+  CONSTRAINT `FK_USUARIO` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -65,7 +93,7 @@ CREATE TABLE `video` (
 
 LOCK TABLES `video` WRITE;
 /*!40000 ALTER TABLE `video` DISABLE KEYS */;
-INSERT INTO `video` VALUES (1,'tamtam2','6HSh1nMHCe0'),(2,'oficial','wPf473Kjt9o'),(3,'tamtam1','5wgHODuCr24'),(4,'vidaModerna','O-hLqiebtJ0');
+INSERT INTO `video` VALUES (1,'tamtam2','6HSh1nMHCe0',1),(2,'oficial','wPf473Kjt9o',1),(3,'tamtam1','5wgHODuCr24',1),(4,'vidaModerna','O-hLqiebtJ0',1);
 /*!40000 ALTER TABLE `video` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,4 +110,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-03 13:39:16
+-- Dump completed on 2019-01-04 10:06:22
