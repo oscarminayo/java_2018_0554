@@ -18,8 +18,10 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
+import com.ipartek.formacion.modelo.dao.UsuarioDAO;
 import com.ipartek.formacion.modelo.dao.VideoDAO;
 import com.ipartek.formacion.modelo.pojo.Alerta;
+import com.ipartek.formacion.modelo.pojo.Usuario;
 import com.ipartek.formacion.modelo.pojo.Video;
 
 /**
@@ -50,14 +52,19 @@ public class VideoController extends HttpServlet {
 	private String id;
 	private String nombre;
 	private String codigo;
+
+	private String  id_usuario;
 	
-    private static VideoDAO dao = null;   
+	
+    private static VideoDAO videoDao = null;   
+    private static UsuarioDAO usuarioDao = null;    // marca
 	
 	
     @Override
     public void init(ServletConfig config) throws ServletException {    
     	super.init(config);
-    	dao = VideoDAO.getInstance();
+    	videoDao = VideoDAO.getInstance();
+    	usuarioDao= UsuarioDAO.getInstance(); // marca
     	factory  = Validation.buildDefaultValidatorFactory();
     	validator  = factory.getValidator();
     }
@@ -102,6 +109,7 @@ public class VideoController extends HttpServlet {
 		}finally {
 			// mensaje para el usuario
 			request.setAttribute("alerta", alerta);
+			
 			// ir a una vista
 			request.getRequestDispatcher(vista).forward(request, response);
 		}	
@@ -110,7 +118,7 @@ public class VideoController extends HttpServlet {
 
 	private void listar(HttpServletRequest request) {
 		
-		request.setAttribute("videos", dao.getAll());		
+		request.setAttribute("videos", videoDao.getAll());		
 		
 	}
 
@@ -119,7 +127,7 @@ public class VideoController extends HttpServlet {
 	
 		int identificador = Integer.parseInt(id);		
 		
-		if ( dao.delete(identificador) ) {
+		if ( videoDao.delete(identificador) ) {
 			alerta = new Alerta( Alerta.TIPO_SUCCESS, "Registro eliminado con exito");
 		}else {
 			alerta = new Alerta( Alerta.TIPO_WARNING, "Registro NO eliminado, sentimos las molestias");
@@ -133,10 +141,17 @@ public class VideoController extends HttpServlet {
 
 		//crear video mediante parametros del formulario
 		Video v = new Video();
+	
+		
 		int identificador = Integer.parseInt(id);	
 		v.setId( (long)identificador);
 		v.setCodigo(codigo);
 		v.setNombre(nombre);
+		
+		
+		Usuario u = new Usuario();
+		u.setId(Long.parseLong(id_usuario));
+		v.setUsuario(u);
 		
 		//validar usuario		
 		Set<ConstraintViolation<Video>> violations = validator.validate(v);
@@ -147,15 +162,17 @@ public class VideoController extends HttpServlet {
 		  alerta = new Alerta( Alerta.TIPO_WARNING, "Los campos introduciodos no son correctos, por favor intentalo de nuevo");		 
 		  vista = VIEW_FORM; 
 		  // volver al formulario, cuidado que no se pierdan los valores en el form
+		  
 		  request.setAttribute("video", v);	
+		  request.setAttribute("usuarios", usuarioDao.getAll()); 
 		  
 		}else {									  //  validacion correcta
 		
 			try {
 				if ( identificador > 0 ) {
-					dao.update(v);				
+					videoDao.update(v);				
 				}else {				
-					dao.insert(v);
+					videoDao.insert(v);
 				}
 				alerta = new Alerta( Alerta.TIPO_SUCCESS, "Registro guardado con exito");
 				listar(request);
@@ -164,6 +181,7 @@ public class VideoController extends HttpServlet {
 				alerta = new Alerta( Alerta.TIPO_WARNING, "Lo sentimos pero el EMAIL ya existe");
 				vista = VIEW_FORM;
 				request.setAttribute("video", v);
+				request.setAttribute("usuarios", usuarioDao.getAll()); 
 			}	
 		}	
 		
@@ -177,13 +195,14 @@ public class VideoController extends HttpServlet {
 		
 		int identificador = Integer.parseInt(id);
 		if ( identificador > 0 ) {			
-			v = dao.getById(identificador);
+			v = videoDao.getById(identificador);
 		}
 		request.setAttribute("video", v);
+		request.setAttribute("usuarios", usuarioDao.getAll() );
 		
-		//TODO enviar atributo usuarios
-		
+				
 	}
+
 
 	
 	private void getParametros(HttpServletRequest request) {
@@ -197,6 +216,8 @@ public class VideoController extends HttpServlet {
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");
 		codigo = request.getParameter("codigo");
+		id_usuario = request.getParameter("id_usuario");
+		
 		
 		//TODO nuevo parametro para id_usuario
 		

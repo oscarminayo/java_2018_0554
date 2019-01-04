@@ -30,15 +30,22 @@
 				
 				
 				<div class="form-group">
+				
 					<label for="id_usuario">Selecciona Usuario</label>
-					<select name="id_usuario">
-					  <option value="1">admin@adsmin.com</option>
-					  <option value="6">marianiko@pepemail.com</option>   
-					</select>
-				</div>	
+					<select class= "form-control" name="id_usuario">
 					
+					<option value="-1">---seleccionar---</option> <!--  para que se vea seleccionar lo primero al crear usuario -->
+					
+					<c:forEach items="${usuarios}" var="u">
+						<option value="${u.id}" ${(u.id==video.usuario.id)?"selected":""}>${u.email}</option>	<!--  OPERDADOR TERNARIO PARA SELECCIONAR EL USUARIO QUE CORRESPONDE AL VIDEO EN EL LISTADO -->
+					</c:forEach>
+					</select>
+
+				</div>
+									
 				<input type="hidden" name="op" value="3">
 				<button type="submit" class="btn btn-primary btn-block">GUARDAR</button>
+			
 			</form>
 			
 			<c:if test="${video.id > 0}">

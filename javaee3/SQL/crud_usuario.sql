@@ -23,6 +23,11 @@ DELETE FROM `usuario` WHERE  `id`=3;
 SELECT id,email, password FROM usuario WHERE email='auraga@ipartek.com' AND `password`='222';
 
 
+-- by id
+
+SELECT v.id as 'id_video', u.id as 'id_usuario', email, password, nombre, codigo FROM video as v, usuario as u WHERE v.id_usuario = u.id AND v.id = ?;
+
+
 -- Listado de videos con detalle usuario--
 SELECT
 	v.id as 'id_video',
