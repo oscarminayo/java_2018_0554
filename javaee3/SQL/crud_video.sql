@@ -20,3 +20,5 @@ DELETE FROM `javaee`.`video` WHERE `id`=7;
 
 --- update ---
 UPDATE `javaee`.`video` SET `nombre` = 'Bruce Dickinson - Tears of The Dragon', `codigo`='vXClBjNxiOA', `id_usuario` = 2 WHERE (`id` = 4);
+
+UPDATE `dgt`.`multa` SET `fecha` = CURRENT_TIMESTAMP  WHERE (`id` = 2); -- con fecha--S
