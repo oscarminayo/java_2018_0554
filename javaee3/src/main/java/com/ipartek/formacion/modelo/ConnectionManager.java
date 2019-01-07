@@ -8,22 +8,26 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 
-public class ConnectionManager {
-
+public class ConnectionManager {  // CLASE 
+	
+// VARIABLES
+	//constante para mensajes de errores
 	private final static Logger LOG = Logger.getLogger(ConnectionManager.class);
+	
+	// variable para METODO getConnection
 	private static Connection conn;
 	
-
-	public static Connection getConnection() {
+// METODO DE 
+	public static Connection getConnection() {  // metodo de la clase DRIVERMANAGER DE LA API
 
 		conn = null;
 		try {
 			//cargar properties
-			Properties prop = new Properties();
+			Properties prop = new Properties();  //guardo las propiedades de database.properties en un objeto de tipo Properties
 			
 			InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("database.properties");	
-			prop.load(input);
-			LOG.debug("cargado fichero properties");
+			prop.load(input); // cargo el fichero en las properties
+			LOG.debug("cargado fichero properties");  // mensaje
 			
 			//comprobar que exista .jar para mysql
 			Class.forName(prop.getProperty("ddbb.driver")).newInstance();
@@ -39,7 +43,7 @@ public class ConnectionManager {
 
 		}catch (Exception e) {
 			
-			LOG.fatal("Erro estableciendo conexion base datos" , e);
+			LOG.fatal("Error estableciendo conexion base datos" , e);
 			
 		}	
 		return conn;

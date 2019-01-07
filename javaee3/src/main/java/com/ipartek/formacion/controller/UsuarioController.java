@@ -52,7 +52,7 @@ public class UsuarioController extends HttpServlet {
 	// variable para mostrar alerta
 	private Alerta alerta;
 	
-	//parametros	
+	//VARIABLES PARA PARAMETROS	
 	private String op;
 	private String id;
 	private String email;
@@ -118,15 +118,15 @@ public class UsuarioController extends HttpServlet {
 		}	
 	}
 
-
+//PARA LISTAR USUARIOS
 	private void listar(HttpServletRequest request) {
 
 		// alerta = "Lista de Usuarios";
-		request.setAttribute("usuarios", dao.getAll());		
-		
+		request.setAttribute("usuarios", dao.getAll());				
 	}
 
-
+	
+// PARA ELIMINAR USUARIOS
 	private void eliminar(HttpServletRequest request) throws SQLException {
 	
 		int identificador = Integer.parseInt(id);		
@@ -136,14 +136,15 @@ public class UsuarioController extends HttpServlet {
 		}else {
 			alerta = new Alerta( Alerta.TIPO_WARNING, "Registro NO eliminado, sentimos las molestias");
 		}
-				
+			
 		listar(request);		
 	}
 
 
+// PARA GUARDAR USUARIOS
 	private void guardar(HttpServletRequest request) {
 
-		//crear usuario mediante parametros del formulario
+		//CREAR USUARIO mediante parametros del formulario  // PUEDO CREAR metodo rowMapper para reutilizar codigo
 		Usuario u = new Usuario();
 		int identificador = Integer.parseInt(id);	
 		u.setId( (long)identificador);
@@ -152,36 +153,36 @@ public class UsuarioController extends HttpServlet {
 		
 		//validar usuario		
 		Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
-		
-		
-		if ( violations.size() > 0 ) {              // validacion NO correcta
+	
+		if ( violations.size() > 0 ) { // validacion NO correcta
 		 
 		  alerta = new Alerta( Alerta.TIPO_WARNING, "Los campos introduciodos no son correctos, por favor intentalo de nuevo");		 
 		  vista = VIEW_FORM; 
 		  // volver al formulario, cuidado que no se pierdan los valores en el form
 		  request.setAttribute("usuario", u);	
 		  
-		}else {									  //  validacion correcta
-			
+		}else {	//  validacion correcta
+		
+		//LOGICA			
 			try {
-				if ( identificador > 0 ) {
-					dao.update(u);				
-				}else {				
-					dao.insert(u);
+				if ( identificador > 0 ) {  												// SI AL INTRODUCIR LOS DATOS LA ID ES MAYOR QUE CERO (es decir, el usuario introduce su id) 
+					dao.update(u);															// ACTUALIZO el usuario
+				}else {																		// SI LA ID ES -1
+					dao.insert(u);															// LO CREO , Lo insterto, lo guardo
 				}
-				alerta = new Alerta( Alerta.TIPO_SUCCESS, "Registro guardado con exito");
-				listar(request);
 				
-			}catch ( SQLException e) {
+				alerta = new Alerta( Alerta.TIPO_SUCCESS, "Registro guardado con exito"); 	//MENSAJE EXITO
+				listar(request); 															// VUELVO A LISTAR PARA VER TODOS LOS USUARIOS
+				
+			}catch ( SQLException e) {														// SI no ha podido actualizar o crear/insertar
 				alerta = new Alerta( Alerta.TIPO_WARNING, "Lo sentimos pero el EMAIL ya existe");
 				vista = VIEW_FORM;
 				request.setAttribute("usuario", u);
 			}	
-		}	
-		
+		}			
 	}
 
-
+// PARA IR A FORMULARIO
 	private void irFormulario(HttpServletRequest request) {
 		
 		vista = VIEW_FORM; 
@@ -194,15 +195,14 @@ public class UsuarioController extends HttpServlet {
 		request.setAttribute("usuario", u);		
 	}
 
-	
+// PARA RECOGER PARAMETROS DEL FORMULARIO	
 	private void getParametros(HttpServletRequest request) {
 
-		op = request.getParameter("op");
+		op = request.getParameter("op");  // para numero de operacion
 		if( op == null ) {
-			op = OP_LISTAR;
+			op = OP_LISTAR;  // si no hay opercion listar por defecto
 		} 
-		
-		
+		//	recojo parametros 
 		id = request.getParameter("id");
 		email = request.getParameter("email");
 		password = request.getParameter("password");

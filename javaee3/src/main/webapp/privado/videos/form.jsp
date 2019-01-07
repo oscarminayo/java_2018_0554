@@ -28,6 +28,11 @@
 				    <small id="codigo" class="form-text text-muted">11 caracteres</small>			    
 				</div>
 				
+			<div class="form-group">
+				    <label for="tipo">Tipo</label>
+				    <input type="text" name="tipo" value="${video.tipo}" class="form-control" placeholder="11 caracteres">
+				    <small id="tipo" class="form-text text-muted">11 caracteres</small>			    
+				</div>
 				
 				<div class="form-group">
 				
@@ -42,6 +47,8 @@
 					</select>
 
 				</div>
+				
+			
 									
 				<input type="hidden" name="op" value="3">
 				<button type="submit" class="btn btn-primary btn-block">GUARDAR</button>

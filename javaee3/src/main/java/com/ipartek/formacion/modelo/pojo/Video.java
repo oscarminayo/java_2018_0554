@@ -19,6 +19,7 @@ public class Video {
 	private String codigo;
 
 	private Usuario usuario;
+	private String tipo;
 	
 	// Constructores
 
@@ -28,7 +29,14 @@ public class Video {
 		this.nombre = "";
 		this.codigo = "";
 		this.usuario = new Usuario();
+		this.tipo= "";
 	}
+	
+	public Video(String nombre) {
+		this();
+		this.nombre = nombre;
+	}
+	
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -38,13 +46,7 @@ public class Video {
 		this.usuario = usuario;
 	}
 
-	public Video(String nombre) {
-		this();
-		this.nombre = nombre;
-	}
 	
-
-	// Getters y Setters
 
 	public long getId() {
 		return id;
@@ -70,10 +72,21 @@ public class Video {
 		this.codigo = codigo;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	@Override
 	public String toString() {
-		return "Video [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", usuario=" + usuario + "]";
+		return "Video [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", usuario=" + usuario + ", tipo="
+				+ tipo + "]";
 	}
+
+	
 
 
 
