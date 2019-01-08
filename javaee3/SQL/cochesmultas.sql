@@ -1,5 +1,4 @@
-SELECT * FROM dgt.multa;
-SELECT * FROM dgt.coche;
+LA MIVXBGD
 
 
 -- 1. LISTADO total multas en 2019
