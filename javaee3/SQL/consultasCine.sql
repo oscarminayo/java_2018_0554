@@ -35,8 +35,71 @@ FROM cine.peliculas
 WHERE peliculas.id_sala= 0;
 
 
--- 7. mostrar el nombre de las peliculas que no se proyectan en ninguna sala ORDENADAS POR TITU LO
+-- 7. mostrar el nombre de las peliculas que no se proyectan en ninguna sala ORDENADAS POR TITULO
 SELECT titulo
 FROM cine.peliculas
 WHERE peliculas.id_sala= 0
 order by titulo;
+
+
+
+
+-- en clase
+select * from cine.actor;
+select * from cine.pelicula_actor;
+select * from cine.pelicula;
+
+-- 1/ pelis q ha hecho un actor
+SELECT 
+a.id as 'id actor',
+p.id as 'id pelicula',
+a.nombre as 'actor',
+p.nombre as 'nombre pelicula'
+FROM cine.actor as a, cine.pelicula as p, pelicula_actor as pa 
+where a.id = pa.id_actor and p.id = pa.id_pelicula and a.nombre = 'harrison ford';
+
+-- 2/ detalle completo de una peli. (falta sacar actor)
+SELECT 
+p.id as 'id pelicula',
+d.nombre as 'nombre director',
+p.nombre, 
+p.duracion, 
+p.fecha 
+FROM cine.pelicula as p, cine.director as d
+where p.id_director= d.id and p.nombre= 'matrix';  -- relaciona el director con la peli matrix 
+
+-- 3/ peliculas del año xxx
+SELECT 
+COUNT(*) AS 'total pelis 2000'
+FROM cine.pelicula
+where fecha = '2000-05-17';
+
+-- 4/ todas las pelis de una categoria xxx
+SELECT 
+p.id as 'id_pelicula',
+p.nombre,
+p.duracion,
+p.fecha,
+c.nombre 'genero' 
+FROM cine.pelicula as p, cine.categoria as c
+where p.id_categoria = c.id and c.nombre = 'ciencia ficcion';
+
+
+-- 5/ total pelis por categoria
+SELECT 
+COUNT(*) AS 'total peliculas ciencia ficcion'
+FROM cine.pelicula as p, cine.categoria as c
+where p.id_categoria = c.id and c.nombre = 'ciencia ficcion';
+
+
+-- 6/ agrupar todas las pelis por categoria
+
+
+
+
+
+-- 7/ todas las categproas que no tengan peli asociada
+-- 8/ pelis q tengan mas de 2 actores
+-- 9/ salario de un actor
+-- 10/ una peli cuanto presupuesto tiene para actores
+

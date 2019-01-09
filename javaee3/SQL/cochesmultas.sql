@@ -35,3 +35,23 @@ SELECT * FROM coche WHERE id IN
 -- subconsulta id de los cocches con mas de una multa
 (SELECT id_coche FROM  multa  GROUP BY id_coche HAVING COUNT(id_coche) >=2 );
 -- FIN 8-------
+
+select * from dgt.multa;
+
+--  TOTAL MULTAS
+SELECT COUNT(*) AS 'TOTAL' ,
+MIN(importe) AS 'menor',
+MAX(importe) AS 'mayor',
+AVG(importe) AS 'media',
+SUM(importe) AS 'recaudacion' 
+FROM dgt.multa 
+ where year(fecha)=2019
+
+-- TOTAL MULTAS agrupadas por agente
+SELECT COUNT(*) AS 'NUMERO MULTAS' ,
+MIN(importe) AS 'menor',
+MAX(importe) AS 'mayor',
+ROUND(AVG(importe),2) AS 'media',
+SUM(importe) AS 'recaudacion' 
+FROM dgt.multa 
+WHERE YEAR(fecha)=2019 GROUP BY id_agente

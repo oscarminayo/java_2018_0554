@@ -129,8 +129,7 @@ public class VideoController extends HttpServlet {
 
 	private void listar(HttpServletRequest request) {
 		
-		request.setAttribute("videos", videoDao.getAll());		
-		
+		request.setAttribute("videos", videoDao.getAll());			
 	}
 
 
