@@ -45,44 +45,80 @@ order by titulo;
 
 
 -- en clase
-select * from cine.actor;
-select * from cine.pelicula_actor;
-select * from cine.pelicula;
 
--- 1/ pelis q ha hecho un actor
-SELECT 
-a.id as 'id actor',
-p.id as 'id pelicula',
-a.nombre as 'actor',
-p.nombre as 'nombre pelicula'
-FROM cine.actor as a, cine.pelicula as p, pelicula_actor as pa 
-where a.id = pa.id_actor and p.id = pa.id_pelicula and a.nombre = 'harrison ford';
+-- 1 peliculas que ha hecho un actor
+SELECT
+	p.id as 'id_pelicula', 
+	p.nombre as 'nombre pelicula',
+	a.nombre as ' nombre actor',
+	a.id as 'id_actor' 
+FROM 
+	pelicula as p, 
+	pelicula_actor as pa, 
+	actor as a
+WHERE 
+	p.id = pa.id_pelicula and 
+	pa.id_actor = a.id and 
+	a.nombre = 'Leonardo Di Caprio';
 
--- 2/ detalle completo de una peli. (falta sacar actor)
-SELECT 
-p.id as 'id pelicula',
-d.nombre as 'nombre director',
-p.nombre, 
-p.duracion, 
-p.fecha 
-FROM cine.pelicula as p, cine.director as d
-where p.id_director= d.id and p.nombre= 'matrix';  -- relaciona el director con la peli matrix 
 
--- 3/ peliculas del año xxx
+-- 2 Detalle completo de una pelicula
 SELECT 
-COUNT(*) AS 'total pelis 2000'
-FROM cine.pelicula
-where fecha = '2000-05-17';
+	p.id as 'id pelicula',
+	p.nombre as 'nombre pelicula',
+	p.duracion,
+	p.fecha ,
+	a.id as 'id actor',
+	a.nombre as 'protagonista',
+	pa.salario as 'salario actor',
+	d.nombre as 'nombre director'
+FROM 
+	pelicula as p, 
+	categoria as c, 
+	pelicula_actor as pa,
+	actor as a
+WHERE 
+	p.id = c.id AND 
+	p.id = pa.id_pelicula AND 
+	pa.id_actor = a.id AND 
+	p.nombre = 'Matrix';
 
--- 4/ todas las pelis de una categoria xxx
+-- 3 Total peliculas del año 2011
+	-- con detalle
+		SELECT
+			nombre as ' pelicula del 2011',
+			id
+		FROM pelicula
+		WHERE YEAR(fecha) = 2011
+		group by fecha;
+
+
+		
+	-- solo la cuenta
+		SELECT
+		COUNT(*) as 'Nº Estrenos en 2011'
+		FROM pelicula
+		WHERE YEAR(fecha) = 2011
+		
+
+-- 4 todas las pelis de una categoria  y su detalle
 SELECT 
-p.id as 'id_pelicula',
-p.nombre,
-p.duracion,
-p.fecha,
-c.nombre 'genero' 
-FROM cine.pelicula as p, cine.categoria as c
-where p.id_categoria = c.id and c.nombre = 'ciencia ficcion';
+	p.id as 'id_pelicula',
+	p.nombre,
+	p.duracion,
+	p.fecha,
+	c.nombre 'genero',
+	a.nombre
+FROM 
+	pelicula as p, 
+	categoria as c, 
+	pelicula_actor as pa, 
+	actor as a
+Where 
+	p.id_categoria = c.id AND 
+	p.id = pa.id_pelicula AND 
+	pa.id_actor = a.id AND 
+	c.nombre = 'ciencia ficcion';
 
 
 -- 5/ total pelis por categoria
@@ -92,14 +128,71 @@ FROM cine.pelicula as p, cine.categoria as c
 where p.id_categoria = c.id and c.nombre = 'ciencia ficcion';
 
 
--- 6/ agrupar todas las pelis por categoria
+-- 5 nº total de peliculas en una categoria
+SELECT 
+c.nombre as 'genero',
+COUNT(*) as 'nº peliculas'
+FROM pelicula as p, categoria as c
+WHERE p.id_categoria = c.id AND c.nombre = 'ciencia ficcion';
 
 
-
-
+-- 6  agrupar todas las pelis por categoria
+SELECT
+c.nombre as 'genero',
+COUNT(*) as 'nº peliculas'
+FROM pelicula as p, categoria as c
+WHERE p.id_categoria = c.id 
+group by c.nombre;
 
 -- 7/ todas las categproas que no tengan peli asociada
--- 8/ pelis q tengan mas de 2 actores
+
+SELECT 
+p.id,
+p.nombre as 'peliculas sin categoria'
+FROM pelicula as p
+WHERE p.id_categoria IS NULL;
+
+
+
+
+-- 8 PELIS QUE TENGAN MAS DE DOS ACTORES
+SELECT
+p.nombre as 'nombre pelicula',
+count(*)
+FROM pelicula as p, pelicula_actor as pa, actor as a
+WHERE p.id = pa.id_pelicula and pa.id_actor= a.id
+group by p.nombre having count(*)>=2 ;
+
+
 -- 9/ salario de un actor
--- 10/ una peli cuanto presupuesto tiene para actores
+SELECT 
+a.nombre,
+pa.salario
+FROM pelicula_actor as pa , actor as a
+WHERE pa.id_pelicula = a.id and a.nombre = 'Leonardo Di Caprio';
+
+
+-- extra mi consulta. salario de todos los actores
+
+SELECT
+a.nombre, 
+salario
+FROM pelicula_actor as pa, actor as a
+WHERE pa.id_actor= a.id;
+
+-- extra mi consulta. mostrar el numero de peliculas de cada actor
+SELECT 
+a.nombre,
+COUNT(*) AS 'total peliculas'
+FROM actor as a, pelicula as p, pelicula_actor as pa 
+WHERE p.id = pa.id_actor and pa.id_actor = a.id and p.id
+group by a.nombre;
+
+-- extra salario de todos los actores
+SELECT 
+a.nombre,
+pa.salario
+FROM pelicula_actor as pa , actor as a
+WHERE pa.id_pelicula = a.id;
+
 
