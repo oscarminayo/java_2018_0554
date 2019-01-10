@@ -1,15 +1,15 @@
-CREATE DATABASE  IF NOT EXISTS `cine` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `cine`;
--- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `tienda_online` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `tienda_online`;
+-- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
 --
--- Host: localhost    Database: cine
+-- Host: 127.0.0.1    Database: tienda_online
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -18,159 +18,56 @@ USE `cine`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `actor`
+-- Table structure for table `clientes`
 --
 
-DROP TABLE IF EXISTS `actor`;
+DROP TABLE IF EXISTS `clientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `actor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `actor`
---
-
-LOCK TABLES `actor` WRITE;
-/*!40000 ALTER TABLE `actor` DISABLE KEYS */;
-INSERT INTO `actor` VALUES (1,'Russell Crowe'),(2,'Al Pacino'),(3,'Al Pacino'),(4,'Christian Bale'),(5,'Keanu  Reaves'),(6,'Harrison Ford');
-/*!40000 ALTER TABLE `actor` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `categoria`
---
-
-DROP TABLE IF EXISTS `categoria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `categoria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `categoria`
---
-
-LOCK TABLES `categoria` WRITE;
-/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (6,'Accion'),(4,'Amor'),(2,'ciencia ficcion'),(5,'Comedia'),(3,'drama'),(1,'Epico-Historico');
-/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `director`
---
-
-DROP TABLE IF EXISTS `director`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `director` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `director`
---
-
-LOCK TABLES `director` WRITE;
-/*!40000 ALTER TABLE `director` DISABLE KEYS */;
-INSERT INTO `director` VALUES (1,'George Lucas'),(2,'Hermanas Wachowski'),(3,'Roberto Benini'),(4,'Ridley Scott'),(5,'Francis Ford Coppola'),(6,'Christopher Nolan');
-/*!40000 ALTER TABLE `director` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pelicula`
---
-
-DROP TABLE IF EXISTS `pelicula`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `pelicula` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  `duracion` int(11) NOT NULL,
-  `fecha` date DEFAULT NULL,
-  `id_categoria` int(11) DEFAULT NULL,
-  `id_director` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pelicula`
---
-
-LOCK TABLES `pelicula` WRITE;
-/*!40000 ALTER TABLE `pelicula` DISABLE KEYS */;
-INSERT INTO `pelicula` VALUES (1,'gladiator',155,'2000-05-17',1,4),(2,'el padrino',160,'1972-05-17',3,5),(3,'el padrino 2',160,'1974-05-17',3,5),(4,'caballero oscuro',152,'2008-05-17',2,6),(5,'matrix',140,'1999-05-17',2,2),(6,'Star Wars',160,'1977-05-17',2,1);
-/*!40000 ALTER TABLE `pelicula` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pelicula_actor`
---
-
-DROP TABLE IF EXISTS `pelicula_actor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `pelicula_actor` (
-  `id_pelicula` int(11) NOT NULL,
-  `id_actor` int(11) DEFAULT NULL,
-  `salario` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_pelicula`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pelicula_actor`
---
-
-LOCK TABLES `pelicula_actor` WRITE;
-/*!40000 ALTER TABLE `pelicula_actor` DISABLE KEYS */;
-INSERT INTO `pelicula_actor` VALUES (1,1,100000),(2,2,10000),(3,3,30000),(4,4,120000),(5,5,95000),(6,6,20000),(7,NULL,NULL);
-/*!40000 ALTER TABLE `pelicula_actor` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `salas`
---
-
-DROP TABLE IF EXISTS `salas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `salas` (
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clientes` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT 'null',
-  `pelicula` varchar(100) DEFAULT NULL,
+  `nombre` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `salas`
+-- Dumping data for table `clientes`
 --
 
-LOCK TABLES `salas` WRITE;
-/*!40000 ALTER TABLE `salas` DISABLE KEYS */;
-INSERT INTO `salas` VALUES (1,'bilbao','StarWars'),(2,'cordoba','StarTreck'),(3,'madrid','La vida es Bella'),(4,'pontevedra',NULL);
-/*!40000 ALTER TABLE `salas` ENABLE KEYS */;
+LOCK TABLES `clientes` WRITE;
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (1,'david'),(2,'xabi'),(5,'amaia');
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'cine'
+-- Table structure for table `pedidos`
+--
+
+DROP TABLE IF EXISTS `pedidos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pedidos` (
+  `id` int(11) NOT NULL,
+  `idcliente` int(11) NOT NULL,
+  `idproducto` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pedidos`
+--
+
+LOCK TABLES `pedidos` WRITE;
+/*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
+INSERT INTO `pedidos` VALUES (1,1,0),(2,2,11),(3,2,11),(4,3,21),(5,3,22),(6,3,32),(7,4,12),(8,5,33),(9,5,32);
+/*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'tienda_online'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -182,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-09 14:26:41
+-- Dump completed on 2019-01-10 21:46:23
