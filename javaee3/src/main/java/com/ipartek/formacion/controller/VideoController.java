@@ -3,7 +3,6 @@ package com.ipartek.formacion.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Set;
 
 import javax.servlet.ServletConfig;
@@ -22,7 +21,6 @@ import org.apache.log4j.Logger;
 import com.ipartek.formacion.modelo.dao.UsuarioDAO;
 import com.ipartek.formacion.modelo.dao.VideoDAO;
 import com.ipartek.formacion.modelo.pojo.Alerta;
-
 import com.ipartek.formacion.modelo.pojo.Usuario;
 import com.ipartek.formacion.modelo.pojo.Video;
 
@@ -54,28 +52,17 @@ public class VideoController extends HttpServlet {
 	private String id;
 	private String nombre;
 	private String codigo;
-	private String tipo;
-
-	private String  id_usuario;
+	private String id_usuario;
 	
-	
-    private static VideoDAO videoDao = null;   
-    
-    private static UsuarioDAO usuarioDao = null;  // marca
-
+    private static VideoDAO daoVideo = null;   
+    private static UsuarioDAO daoUsuario = null;
 	
 	
     @Override
     public void init(ServletConfig config) throws ServletException {    
     	super.init(config);
-    	videoDao = VideoDAO.getInstance();
-    	
-    	
-    	usuarioDao= UsuarioDAO.getInstance(); // marca 	
-    
-    	
-    	
-    	// marca
+    	daoVideo = VideoDAO.getInstance();
+    	daoUsuario = UsuarioDAO.getInstance();
     	factory  = Validation.buildDefaultValidatorFactory();
     	validator  = factory.getValidator();
     }
@@ -120,7 +107,6 @@ public class VideoController extends HttpServlet {
 		}finally {
 			// mensaje para el usuario
 			request.setAttribute("alerta", alerta);
-			
 			// ir a una vista
 			request.getRequestDispatcher(vista).forward(request, response);
 		}	
@@ -129,7 +115,8 @@ public class VideoController extends HttpServlet {
 
 	private void listar(HttpServletRequest request) {
 		
-		request.setAttribute("videos", videoDao.getAll());			
+		request.setAttribute("videos", daoVideo.getAll());		
+		
 	}
 
 
@@ -137,7 +124,7 @@ public class VideoController extends HttpServlet {
 	
 		int identificador = Integer.parseInt(id);		
 		
-		if ( videoDao.delete(identificador) ) {
+		if ( daoVideo.delete(identificador) ) {
 			alerta = new Alerta( Alerta.TIPO_SUCCESS, "Registro eliminado con exito");
 		}else {
 			alerta = new Alerta( Alerta.TIPO_WARNING, "Registro NO eliminado, sentimos las molestias");
@@ -149,54 +136,36 @@ public class VideoController extends HttpServlet {
 
 	private void guardar(HttpServletRequest request) {
 
-//1 crear video mediante parametros del formulario
-		
-		//VIDEO
-		Video v = new Video(); 						// video; objeto
-
-		int identificador = Integer.parseInt(id);	//paseo para id
-		v.setId( (long)identificador); 				// guardo atributo id del formulario en el nuevo video
-		v.setCodigo(codigo);						// Lo mismo 
+		//crear video mediante parametros del formulario
+		Video v = new Video();
+		int identificador = Integer.parseInt(id);	
+		v.setId( (long)identificador);
+		v.setCodigo(codigo);
 		v.setNombre(nombre);
-		v.setTipo(tipo);// Lo mismo
+		
+		Usuario u = new Usuario();
+		u.setId( Long.parseLong(id_usuario));
+		v.setUsuario(u);
+		
+		//validar usuario		
+		Set<ConstraintViolation<Video>> violations = validator.validate(v);
 		
 		
-// 2. crear usuario mediante parametro del formulario (campo en el que puedo elegir usuario)
-		
-		//USUARIO
-		Usuario u = new Usuario(); 					// usuario; objeto
-		u.setId(Long.parseLong(id_usuario)); 		// GUARDO ID DEL FORMULARIO		
-		v.setUsuario(u);  							// GUARDO EL USUARIO EN EL VIDEO  // En el pojo hay un METODO CONSTRUCTOR con parametros. (1 objeto usuario)
-		
-
-// 3. VALIDATOR
-		
-		// violations
-		Set<ConstraintViolation<Video>> violations = validator.validate(v);  // creo violations para validator
-	
-		//SI PASA
-		/*(Si al crear un video introducimos mal algun valor, al dar a guardar, por un lado se muestra la alerta avisando de que los campos no so correctos...
-		 * y por el otro se vuelven a enviar los parametros introducidos por el usuario al rellenar el formulario
-		 * para que no se pierda todo lo que ha rellenado. Puede que se haya equivocado en un solo campo y asi no pierde 
-		 * los demas que si estan bien rellenados
-		 */
 		if ( violations.size() > 0 ) {              // validacion NO correcta
 		 
-		  alerta = new Alerta( Alerta.TIPO_WARNING, "Los campos introduciodos no son correctos, por favor intentalo de nuevo");		//aviso al usuario 
-		  vista = VIEW_FORM;  // volver al formulario. 
-		
-		   
-		  request.setAttribute("video", v);	
-		  request.setAttribute("usuarios", usuarioDao.getAll()); // para elegir usuario en el formulario de creacion de video
-		  request.setAttribute("videos", videoDao.getAll()); // para elegir tipo
-		 
+		  alerta = new Alerta( Alerta.TIPO_WARNING, "Los campos introduciodos no son correctos, por favor intentalo de nuevo");		 
+		  vista = VIEW_FORM; 
+		  // volver al formulario, cuidado que no se pierdan los valores en el form
+		  request.setAttribute("video", v);		  
+		  request.setAttribute("usuarios", daoUsuario.getAll() );
+		  
 		}else {									  //  validacion correcta
 		
 			try {
 				if ( identificador > 0 ) {
-					videoDao.update(v);				
+					daoVideo.update(v);				
 				}else {				
-					videoDao.insert(v);
+					daoVideo.insert(v);
 				}
 				alerta = new Alerta( Alerta.TIPO_SUCCESS, "Registro guardado con exito");
 				listar(request);
@@ -204,10 +173,8 @@ public class VideoController extends HttpServlet {
 			}catch ( SQLException e) {
 				alerta = new Alerta( Alerta.TIPO_WARNING, "Lo sentimos pero el EMAIL ya existe");
 				vista = VIEW_FORM;
-				//NO PERDER LOS PARAMETROS 
 				request.setAttribute("video", v);
-				request.setAttribute("usuarios", usuarioDao.getAll()); 
-				request.setAttribute("videos", videoDao.getAll());
+				request.setAttribute("usuarios", daoUsuario.getAll() );
 			}	
 		}	
 		
@@ -219,20 +186,15 @@ public class VideoController extends HttpServlet {
 		vista = VIEW_FORM; 
 		Video v = new Video();
 		
-		
 		int identificador = Integer.parseInt(id);
-		if ( identificador > 0 ) {			     //  si el parametro id que envio por enlace al pulsar sobre un video es mayor que 0 es que existe si es -1 es para crear video
-			v = videoDao.getById(identificador);  // muestra el usuario en el formulario	
+		if ( identificador > 0 ) {			
+			v = daoVideo.getById(identificador);
 		}
-		
 		request.setAttribute("video", v);
-		request.setAttribute("videos", videoDao.getAll() );
-		request.setAttribute("usuarios", usuarioDao.getAll() );  // para mostrar usuario que he elegido
+		request.setAttribute("usuarios", daoUsuario.getAll() );
 		
-		  // para mostrar tipo 
 				
 	}
-
 
 	
 	private void getParametros(HttpServletRequest request) {
@@ -246,11 +208,7 @@ public class VideoController extends HttpServlet {
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");
 		codigo = request.getParameter("codigo");
-		id_usuario = request.getParameter("id_usuario"); // marca
-		tipo = request.getParameter("tipo");
-		
-		//TODO nuevo parametro para id_usuario
-		
+		id_usuario = request.getParameter("id_usuario");		
 	}
 	
 	

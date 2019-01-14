@@ -14,7 +14,7 @@
 		      <th scope="col">nombre</th>
 		      <th scope="col">codigo</th>
 		      <th scope="col">usuario</th>
-		      <th scope="col">tipo</th>
+		      <th scope="col">fecha</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -22,9 +22,11 @@
 			    <tr>		    	
 			      <th scope="row">${v.id}</th>
 			      <td><a href="privado/videos?op=2&id=${v.id}">${v.nombre}</a></td>
-			      <td scope="row"><iframe width="350" height="250" src="https://www.youtube.com/embed/${v.codigo}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>			      		      
+			      <th scope="row">${v.codigo}</th>			      		      
 			      <th scope="row">${v.usuario.email}</th>
-			      <th scope="row">${v.tipo}</th>
+			      <th scope="row">
+			      	<fmt:formatDate value="${v.fecha}" pattern="yyyy-MM-dd hh:mm:ss"/>
+			      </th>
 			    </tr>    
 		    </c:forEach>
 		  </tbody>

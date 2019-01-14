@@ -1,6 +1,8 @@
 package com.ipartek.formacion.modelo.pojo;
 
 
+import java.util.Date;
+
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -19,7 +21,8 @@ public class Video {
 	private String codigo;
 
 	private Usuario usuario;
-	private String tipo;
+	
+	private Date fecha;
 	
 	// Constructores
 
@@ -29,14 +32,8 @@ public class Video {
 		this.nombre = "";
 		this.codigo = "";
 		this.usuario = new Usuario();
-		this.tipo= "";
+		this.fecha = null;
 	}
-	
-	public Video(String nombre) {
-		this();
-		this.nombre = nombre;
-	}
-	
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -46,7 +43,13 @@ public class Video {
 		this.usuario = usuario;
 	}
 
+	public Video(String nombre) {
+		this();
+		this.nombre = nombre;
+	}
 	
+
+	// Getters y Setters
 
 	public long getId() {
 		return id;
@@ -72,22 +75,18 @@ public class Video {
 		this.codigo = codigo;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public Date getFecha() {
+		return fecha;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 	@Override
 	public String toString() {
-		return "Video [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", usuario=" + usuario + ", tipo="
-				+ tipo + "]";
+		return "Video [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", usuario=" + usuario + ", fecha="
+				+ fecha + "]";
 	}
-
-	
-
-
 
 }

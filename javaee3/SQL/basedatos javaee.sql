@@ -1,15 +1,15 @@
 CREATE DATABASE  IF NOT EXISTS `javaee` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `javaee`;
--- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: javaee
+-- Host: 127.0.0.1    Database: javaee
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version	5.7.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -18,44 +18,20 @@ USE `javaee`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `perro`
---
-
-DROP TABLE IF EXISTS `perro`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `perro` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(150) NOT NULL,
-  `raza` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `perro`
---
-
-LOCK TABLES `perro` WRITE;
-/*!40000 ALTER TABLE `perro` DISABLE KEYS */;
-INSERT INTO `perro` VALUES (1,'negu','aguas'),(2,'pluto','pastor belga'),(3,'pulgas','milrarazas');
-/*!40000 ALTER TABLE `perro` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `usuario`
 --
 
 DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador',
   `email` varchar(150) NOT NULL,
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +40,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'david@ipartek.com','123456'),(2,'dfp@ipartek.com','123456'),(3,'juan@ipartek.com','123456'),(4,'maria@gmail.com','123456'),(5,'TammyMChannel@trashymail.com','123456');
+INSERT INTO `usuario` VALUES (1,'admin@admin.com','12345678'),(6,'marianiko@pepemail.com','12345678'),(12,'mariano@matriano.com','12345678'),(15,'auraga@ipartek','12345678'),(17,'mariano@matriano.com.es','123456879');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,17 +50,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `video`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `video` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
   `codigo` varchar(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
+  `fecha` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
   KEY `FK_USUARIO_idx` (`id_usuario`),
-  CONSTRAINT `FK_USUARIO` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_USUARIO` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,13 +70,9 @@ CREATE TABLE `video` (
 
 LOCK TABLES `video` WRITE;
 /*!40000 ALTER TABLE `video` DISABLE KEYS */;
-INSERT INTO `video` VALUES (1,'tamtam2','6HSh1nMHCe0',1),(2,'oficial','wPf473Kjt9o',2),(3,'tamtam1','5wgHODuCr24',3),(4,'Bruce Dickinson - Tears of The Dragon','vXClBjNxiOA',2),(5,'FISICA ACUSTICA','M6fDCg0zQTo',3),(7,'admin','Ckom3gf57Yw',4);
+INSERT INTO `video` VALUES (1,'Surf Search Spot 2 0 video promo','LPDhuthFD98',1,'2019-01-14 08:48:01'),(2,'Sojahfjsrduj','94HwzFGH5gY',6,'2019-01-14 08:48:01'),(4,'Fito & Fitipaldis - Los huesos de los besos (Videoclip oficial)','nmoXDU4BAgI',15,'2019-01-14 08:48:01'),(5,'La Fuga - Por verte sonreir','hdQ99wLYc2g',6,'2019-01-14 08:48:01');
 /*!40000 ALTER TABLE `video` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'javaee'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -110,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04 14:24:04
+-- Dump completed on 2019-01-14  9:23:57
