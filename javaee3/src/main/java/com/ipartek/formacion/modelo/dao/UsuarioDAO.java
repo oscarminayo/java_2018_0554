@@ -39,12 +39,17 @@ public class UsuarioDAO {
 	public Usuario login(String email, String pass) {
 
 		Usuario usuario = null;
-		String sql = "SELECT id, email, password FROM usuario WHERE email = ? AND password = ?;";
+		String sql = "{call usuario_login(?,?)}";
 
-		try (Connection conn = ConnectionManager.getConnection(); PreparedStatement pst = conn.prepareStatement(sql);) {
-			pst.setString(1, email);
-			pst.setString(2, pass);
-			try (ResultSet rs = pst.executeQuery()) {
+		try (Connection conn = ConnectionManager.getConnection(); 
+				CallableStatement cs = conn.prepareCall(sql);) {
+			
+			//parametros de entrada
+			cs.setString(1, email);
+			cs.setString(2, pass);
+			
+			
+			try (ResultSet rs = cs.executeQuery()) {
 				while (rs.next()) { // hemos encontrado usuario
 					usuario = new Usuario();
 					usuario.setId(rs.getLong("id"));
